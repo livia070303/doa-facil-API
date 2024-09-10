@@ -10,6 +10,7 @@ import {
 import { CadastroUsuarioService } from './cadastro_usuario/cadastro_usuario.service';
 import {
   CadastroUsuarioDto,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   updateCadastroUsuarioDto,
 } from './cadastro_usuario/dto/cadastro_usuario_dto';
 import {
