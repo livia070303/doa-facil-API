@@ -10,7 +10,7 @@ async function bootstrap() {
   });
   const configService: ConfigService<Env, true> = app.get(ConfigService);
   const port = configService.get('PORT', { infer: true });
-  dotenv.config(); 
+  dotenv.config();
   app.enableCors({
     origin: 'http://localhost:5173',
     credentials: true,

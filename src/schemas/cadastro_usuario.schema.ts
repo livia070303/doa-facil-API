@@ -34,7 +34,7 @@ export class CadastroUsuario {
 
   @Prop()
   senha: string;
-
 }
 
-export const CadastroUsuarioSchema = SchemaFactory.createForClass(CadastroUsuario);
+export const CadastroUsuarioSchema =
+  SchemaFactory.createForClass(CadastroUsuario);

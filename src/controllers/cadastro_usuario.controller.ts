@@ -1,8 +1,22 @@
-import { Controller, Post, Body, Get, Put, Delete, Param } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  Get,
+  Put,
+  Delete,
+  Param,
+} from '@nestjs/common';
 import { CadastroUsuarioService } from './cadastro_usuario/cadastro_usuario.service';
-import { CadastroUsuarioDto, updateCadastroUsuarioDto } from './cadastro_usuario/dto/cadastro_usuario_dto';
-import { ReturnCadastroUsuarioDto, ReturnListCadastroUsuarioDto } from './cadastro_usuario/dto/return-cadastro_usuario.dto';
-import { ObjectId } from 'mongoose';
+import {
+  CadastroUsuarioDto,
+  updateCadastroUsuarioDto,
+} from './cadastro_usuario/dto/cadastro_usuario_dto';
+import {
+  ReturnCadastroUsuarioDto,
+  ReturnListCadastroUsuarioDto,
+} from './cadastro_usuario/dto/return-cadastro_usuario.dto';
+import { hash } from 'bcryptjs';
 
 @Controller('cadastro_usuarios')
 export class CadastroUsuarioController {
@@ -12,7 +26,15 @@ export class CadastroUsuarioController {
   async createCadastroUsuario(
     @Body() createCadastroUsuarioDto: CadastroUsuarioDto,
   ): Promise<ReturnCadastroUsuarioDto> {
-    const cadastro_usuario = await this.cadastroUsuariosService.createCadastroUsuario(createCadastroUsuarioDto);
+    createCadastroUsuarioDto.senha = await hash(
+      createCadastroUsuarioDto.senha,
+      8,
+    );
+
+    const cadastro_usuario =
+      await this.cadastroUsuariosService.createCadastroUsuario(
+        createCadastroUsuarioDto,
+      );
     return {
       cadastro_usuario,
       message: 'Usuário cadastrado com sucesso',
@@ -20,8 +42,7 @@ export class CadastroUsuarioController {
   }
 
   @Get()
-  async getCadastroUsuarios(
-  ): Promise<ReturnListCadastroUsuarioDto> {
+  async getCadastroUsuarios(): Promise<ReturnListCadastroUsuarioDto> {
     const resposta = await this.cadastroUsuariosService.getCadastroUsuarios();
     return {
       cadastro_usuario: resposta,
@@ -52,7 +73,11 @@ export class CadastroUsuarioController {
     @Param('id') id: string,
     @Body() updateCadastroUsuarioDto: updateCadastroUsuarioDto,
   ): Promise<ReturnCadastroUsuarioDto> {
-    const cadastroUsuario = await this.cadastroUsuariosService.updateCadastroUsuarioById(id, updateCadastroUsuarioDto);
+    const cadastroUsuario =
+      await this.cadastroUsuariosService.updateCadastroUsuarioById(
+        id,
+        updateCadastroUsuarioDto,
+      );
     return {
       cadastro_usuario: cadastroUsuario,
       message: 'Cadastro do usuário atualizado com sucesso',
