@@ -5,25 +5,25 @@ import {
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { CadastroUsuario } from 'src/schemas/cadastro_usuario.schema';
 import {
   CadastroUsuarioDto,
   updateCadastroUsuarioDto,
 } from './dto/cadastro_usuario_dto';
+import { User } from 'src/schemas/user.schema';
 
 @Injectable()
-export class CadastroUsuarioService {
+export class UsuarioService {
   constructor(
-    @InjectModel(CadastroUsuario.name, 'main')
-    private userModel: Model<CadastroUsuario>,
+    @InjectModel(User.name, 'main')
+    private userModel: Model<User>,
   ) {}
 
-  async create(cadastroUsuario: CadastroUsuario) {
+  async create(cadastroUsuario: User) {
     return this.userModel.create(cadastroUsuario);
   }
 
   async createCadastroUsuario(cadastroUsuario: CadastroUsuarioDto) {
-    const model = new CadastroUsuario();
+    const model = new User();
     model.nomeCompleto = cadastroUsuario.nomeCompleto;
     model.CPF = cadastroUsuario.CPF;
     model.telefone = cadastroUsuario.telefone;
@@ -37,15 +37,15 @@ export class CadastroUsuarioService {
     return this.userModel.create(model);
   }
 
-  async getCadastroUsuarios(): Promise<CadastroUsuario[]> {
+  async getCadastroUsuarios(): Promise<User[]> {
     return this.userModel.find();
   }
 
-  async getCadastroUsuarioById(id: string): Promise<CadastroUsuario> {
+  async getCadastroUsuarioById(id: string): Promise<User> {
     return this.userModel.findById(id);
   }
 
-  async getCadastroUsuarioByEmail(email: string): Promise<CadastroUsuario> {
+  async getCadastroUsuarioByEmail(email: string): Promise<User> {
     return this.userModel.findOne({
       email: email,
     });
@@ -58,7 +58,7 @@ export class CadastroUsuarioService {
   async updateCadastroUsuarioById(
     id: string,
     updateCadastroUsuarioDto: updateCadastroUsuarioDto,
-  ): Promise<CadastroUsuario> {
+  ): Promise<User> {
     try {
       const prof = await this.userModel.findById(id);
 

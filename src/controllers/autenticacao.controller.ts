@@ -12,7 +12,7 @@ import { ZodValidationPipe } from 'src/pipes/zod-validation-pipe';
 import { z } from 'zod';
 import { compare } from 'bcryptjs';
 import { Response as ExpressResponse } from 'express';
-import { CadastroUsuarioService } from './cadastro_usuario/cadastro_usuario.service';
+import { UsuarioService } from './usuario/usuario.service';
 
 const authenticateSchema = z.object({
   email: z.string().email(),
@@ -24,7 +24,7 @@ type AuthenticateInput = z.infer<typeof authenticateSchema>;
 @Controller('sessions')
 export class AutenticacaoController {
   constructor(
-    private cadastroUsuariosService: CadastroUsuarioService,
+    private usuariosService: UsuarioService,
     private jwt: JwtService,
   ) {}
 
@@ -35,7 +35,7 @@ export class AutenticacaoController {
     const { email, senha } = body;
 
     const usuario =
-      await this.cadastroUsuariosService.getCadastroUsuarioByEmail(email);
+      await this.usuariosService.getCadastroUsuarioByEmail(email);
 
     if (!usuario) {
       throw new UnauthorizedException('Dados Incorretos');

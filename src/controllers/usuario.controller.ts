@@ -7,21 +7,21 @@ import {
   Delete,
   Param,
 } from '@nestjs/common';
-import { CadastroUsuarioService } from './cadastro_usuario/cadastro_usuario.service';
+import { UsuarioService } from './usuario/usuario.service';
 import {
   CadastroUsuarioDto,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   updateCadastroUsuarioDto,
-} from './cadastro_usuario/dto/cadastro_usuario_dto';
+} from './usuario/dto/cadastro_usuario_dto';
 import {
   ReturnCadastroUsuarioDto,
   ReturnListCadastroUsuarioDto,
-} from './cadastro_usuario/dto/return-cadastro_usuario.dto';
+} from './usuario/dto/return-cadastro_usuario.dto';
 import { hash } from 'bcryptjs';
 
-@Controller('cadastro_usuarios')
-export class CadastroUsuarioController {
-  constructor(private cadastroUsuariosService: CadastroUsuarioService) {}
+@Controller('user')
+export class UsuarioController {
+  constructor(private usuariosService: UsuarioService) {}
 
   @Post()
   async createCadastroUsuario(
@@ -33,7 +33,7 @@ export class CadastroUsuarioController {
     );
 
     const cadastro_usuario =
-      await this.cadastroUsuariosService.createCadastroUsuario(
+      await this.usuariosService.createCadastroUsuario(
         createCadastroUsuarioDto,
       );
     return {
@@ -44,7 +44,7 @@ export class CadastroUsuarioController {
 
   @Get()
   async getCadastroUsuarios(): Promise<ReturnListCadastroUsuarioDto> {
-    const resposta = await this.cadastroUsuariosService.getCadastroUsuarios();
+    const resposta = await this.usuariosService.getCadastroUsuarios();
     return {
       cadastro_usuario: resposta,
       message: 'ok',
@@ -63,7 +63,7 @@ export class CadastroUsuarioController {
 
   @Delete(':id')
   async deleteCadastroUsuario(@Param('id') id: string): Promise<any> {
-    await this.cadastroUsuariosService.deleteCadastroUsuarioById(id);
+    await this.usuariosService.deleteCadastroUsuarioById(id);
     return {
       message: 'Usuário excluído com sucesso',
     };
@@ -75,7 +75,7 @@ export class CadastroUsuarioController {
     @Body() updateCadastroUsuarioDto: updateCadastroUsuarioDto,
   ): Promise<ReturnCadastroUsuarioDto> {
     const cadastroUsuario =
-      await this.cadastroUsuariosService.updateCadastroUsuarioById(
+      await this.usuariosService.updateCadastroUsuarioById(
         id,
         updateCadastroUsuarioDto,
       );

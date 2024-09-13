@@ -3,14 +3,15 @@ import { ConfigModule } from '@nestjs/config';
 import { envSchema } from './env';
 import { AuthModule } from './auth/auth.module';
 import { MongooseModule } from '@nestjs/mongoose';
-import { CadastroUsuarioModule } from './controllers/cadastro_usuario/cadastro_usuario.module';
+import { UsuarioModule } from './controllers/usuario/usuario.module';
+import { LoginModule } from './controllers/login/login.module';
 
 @Module({
   imports: [
     MongooseModule.forRoot(
-      'mongodb+srv://admin:doafacil@cluster0.3mj5p.mongodb.net',
+      'mongodb+srv://admin:123doafacil@cluster0.3mj5p.mongodb.net',
       {
-        connectionName: 'main',
+        connectionName: 'main'
       },
     ),
     AuthModule,
@@ -18,7 +19,7 @@ import { CadastroUsuarioModule } from './controllers/cadastro_usuario/cadastro_u
       validate: (env) => envSchema.parse(env),
       isGlobal: true,
     }),
-    CadastroUsuarioModule,
+    UsuarioModule, LoginModule
   ],
   controllers: [],
   providers: [],
