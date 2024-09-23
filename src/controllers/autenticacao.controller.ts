@@ -34,8 +34,7 @@ export class AutenticacaoController {
   async handle(@Body() body: AuthenticateInput, @Res() res: ExpressResponse) {
     const { email, senha } = body;
 
-    const usuario =
-      await this.usuariosService.getCadastroUsuarioByEmail(email);
+    const usuario = await this.usuariosService.getCadastroUsuarioByEmail(email);
 
     if (!usuario) {
       throw new UnauthorizedException('Dados Incorretos');

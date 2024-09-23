@@ -1,4 +1,4 @@
-import { User } from "src/schemas/user.schema";
+import { User } from 'src/schemas/user.schema';
 
 export class ReturnCadastroUsuarioDto {
   cadastro_usuario: User;

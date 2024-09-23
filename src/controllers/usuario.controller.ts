@@ -32,10 +32,9 @@ export class UsuarioController {
       8,
     );
 
-    const cadastro_usuario =
-      await this.usuariosService.createCadastroUsuario(
-        createCadastroUsuarioDto,
-      );
+    const cadastro_usuario = await this.usuariosService.createCadastroUsuario(
+      createCadastroUsuarioDto,
+    );
     return {
       cadastro_usuario,
       message: 'Usuário cadastrado com sucesso',
