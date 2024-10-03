@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ConfigService } from '@nestjs/config';
+import { ValidationPipe } from '@nestjs/common';
 import { Env } from './env';
 import * as dotenv from 'dotenv';
 
@@ -15,6 +16,8 @@ async function bootstrap() {
     origin: 'http://localhost:5173',
     credentials: true,
   });
+
+  app.useGlobalPipes(new ValidationPipe());
 
   await app.listen(port);
 }

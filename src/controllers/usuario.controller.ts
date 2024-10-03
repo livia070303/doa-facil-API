@@ -10,7 +10,6 @@ import {
 import { UsuarioService } from './usuario/usuario.service';
 import {
   CadastroUsuarioDto,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   updateCadastroUsuarioDto,
 } from './usuario/dto/cadastro_usuario_dto';
 import {
@@ -49,16 +48,6 @@ export class UsuarioController {
       message: 'ok',
     };
   }
-
-  // @Get(':id')
-  // async getCadastroUsuarioById(@Param('id') id: ObjectId
-  // ): Promise<ReturnCadastroUsuariosDto> {
-  //   const resposta = await this.cadastroUsuariosService.getCadastroUsuarioById(id);
-  //   return {
-  //     cadastro_usuario: resposta,
-  //     message: 'ok',
-  //   };
-  // }
 
   @Delete(':id')
   async deleteCadastroUsuario(@Param('id') id: string): Promise<any> {

@@ -4,6 +4,7 @@ import { envSchema } from './env';
 import { AuthModule } from './auth/auth.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UsuarioModule } from './controllers/usuario/usuario.module';
+import { DonationModule } from './controllers/donation/donation.module';
 
 @Module({
   imports: [
@@ -18,7 +19,7 @@ import { UsuarioModule } from './controllers/usuario/usuario.module';
       validate: (env) => envSchema.parse(env),
       isGlobal: true,
     }),
-    UsuarioModule,
+    UsuarioModule, DonationModule
   ],
   controllers: [],
   providers: [],
