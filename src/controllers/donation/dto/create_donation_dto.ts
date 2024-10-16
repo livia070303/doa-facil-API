@@ -19,10 +19,6 @@ export class CreateDonationDto {
   @IsNotEmpty()
   @IsNumber()
   quantity: number;  
-
-  // @IsNotEmpty()
-  // @IsObject()
-  // location: { latitude: number; longitude: number }; 
   
   @IsString()
   image: string; 

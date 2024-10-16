@@ -5,6 +5,7 @@ import { AuthModule } from './auth/auth.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UsuarioModule } from './controllers/usuario/usuario.module';
 import { DonationModule } from './controllers/donation/donation.module';
+import { ChatModule } from './controllers/chat/chat.module';
 
 @Module({
   imports: [
@@ -19,7 +20,7 @@ import { DonationModule } from './controllers/donation/donation.module';
       validate: (env) => envSchema.parse(env),
       isGlobal: true,
     }),
-    UsuarioModule, DonationModule
+    UsuarioModule, DonationModule, ChatModule
   ],
   controllers: [],
   providers: [],
