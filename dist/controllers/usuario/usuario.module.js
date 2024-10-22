@@ -13,6 +13,7 @@ const usuario_service_1 = require("./usuario.service");
 const usuario_controller_1 = require("../usuario.controller");
 const autenticacao_controller_1 = require("../autenticacao.controller");
 const user_schema_1 = require("../../schemas/user.schema");
+const autorizacao_controller_1 = require("../autorizacao.controller");
 let UsuarioModule = class UsuarioModule {
 };
 exports.UsuarioModule = UsuarioModule;
@@ -21,7 +22,7 @@ exports.UsuarioModule = UsuarioModule = __decorate([
         imports: [
             mongoose_1.MongooseModule.forFeature([{ name: user_schema_1.User.name, schema: user_schema_1.UserSchema }], 'main'),
         ],
-        controllers: [usuario_controller_1.UsuarioController, autenticacao_controller_1.AutenticacaoController],
+        controllers: [usuario_controller_1.UsuarioController, autenticacao_controller_1.AutenticacaoController, autorizacao_controller_1.AuthorizerController],
         providers: [usuario_service_1.UsuarioService],
         exports: [usuario_service_1.UsuarioService],
     })

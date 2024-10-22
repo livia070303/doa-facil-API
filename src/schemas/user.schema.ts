@@ -12,10 +12,10 @@ export class User {
   nomeCompleto: string;
 
   @Prop()
-  CPF: number;
+  CPF: string;
 
   @Prop()
-  telefone: number;
+  telefone: string;
 
   @Prop()
   email: string;

@@ -10,6 +10,10 @@ async function bootstrap() {
     const configService = app.get(config_1.ConfigService);
     const port = configService.get('PORT', { infer: true }) || 3000;
     dotenv.config();
+    app.enableCors({
+        origin: 'http://localhost:5173',
+        credentials: true,
+    });
     app.useGlobalPipes(new common_1.ValidationPipe());
     await app.listen(port);
 }

@@ -49,7 +49,7 @@ export class AutenticacaoController {
     const accessToken = this.jwt.sign({ sub: usuario.ID });
 
     res.cookie('dfaccTok', accessToken, {
-      expires: new Date(Date.now() + 1000 * 60 * 60), // 1 hour
+      expires: new Date(Date.now() + 1000 * 60 * 60 * 24), // 24 hour
       httpOnly: true,
       secure: false,
       sameSite: 'lax',

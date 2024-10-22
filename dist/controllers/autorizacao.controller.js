@@ -12,30 +12,23 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AuthorizerController = void 0;
+exports.LogoutController = exports.AuthorizerController = void 0;
 const common_1 = require("@nestjs/common");
 const jwt_1 = require("@nestjs/jwt");
-const mongoose_1 = require("@nestjs/mongoose");
-const mongoose_2 = require("mongoose");
 const zod_1 = require("zod");
 const authenticateBodySchema = zod_1.z.object({
     sub: zod_1.z.string().uuid(),
 });
 let AuthorizerController = class AuthorizerController {
-    constructor(jwt, userModel) {
+    constructor(jwt) {
         this.jwt = jwt;
-        this.userModel = userModel;
     }
     async handler(req, res) {
+        const userId = this.jwt.decode(req.cookies.dfaccTok);
         try {
-            const decodedUser = this.jwt.decode(req.cookies.accessToken);
-            const user = authenticateBodySchema.parse(decodedUser);
+            const user = authenticateBodySchema.parse(userId);
             if (!user) {
                 return res.status(400).json({ error: 'Token inválido' });
-            }
-            const foundUser = await this.userModel.findById(user.sub).exec();
-            if (!foundUser) {
-                return res.status(400).json({ error: 'Usuário não encontrado' });
             }
             const payload = {
                 sub: user.sub,
@@ -59,9 +52,27 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], AuthorizerController.prototype, "handler", null);
 exports.AuthorizerController = AuthorizerController = __decorate([
-    (0, common_1.Controller)('/authorization'),
-    __param(1, (0, mongoose_1.InjectModel)('User')),
-    __metadata("design:paramtypes", [jwt_1.JwtService,
-        mongoose_2.Model])
+    (0, common_1.Controller)('authorization'),
+    __metadata("design:paramtypes", [jwt_1.JwtService])
 ], AuthorizerController);
+let LogoutController = class LogoutController {
+    constructor() { }
+    async handler(res) {
+        res.clearCookie('dfaccTok');
+        return res.status(200).json({ message: 'Logout efetuado com sucesso' });
+    }
+};
+exports.LogoutController = LogoutController;
+__decorate([
+    (0, common_1.Get)(),
+    (0, common_1.HttpCode)(200),
+    __param(0, (0, common_1.Res)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], LogoutController.prototype, "handler", null);
+exports.LogoutController = LogoutController = __decorate([
+    (0, common_1.Controller)('logout'),
+    __metadata("design:paramtypes", [])
+], LogoutController);
 //# sourceMappingURL=autorizacao.controller.js.map

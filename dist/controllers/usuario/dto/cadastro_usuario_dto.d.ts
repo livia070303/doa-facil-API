@@ -1,7 +1,7 @@
 export declare class CadastroUsuarioDto {
     nomeCompleto: string;
-    CPF: number;
-    telefone: number;
+    CPF: string;
+    telefone: string;
     email: string;
     CEP: string;
     estado: string;
@@ -11,8 +11,8 @@ export declare class CadastroUsuarioDto {
 }
 export declare class updateCadastroUsuarioDto {
     nomeCompleto: string;
-    CPF: number;
-    telefone: number;
+    CPF: string;
+    telefone: string;
     email: string;
     CEP: string;
     estado: string;

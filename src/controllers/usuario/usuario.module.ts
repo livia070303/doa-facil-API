@@ -4,6 +4,7 @@ import { UsuarioService } from './usuario.service';
 import { UsuarioController } from '../usuario.controller';
 import { AutenticacaoController } from '../autenticacao.controller';
 import { User, UserSchema } from 'src/schemas/user.schema';
+import { AuthorizerController } from '../autorizacao.controller';
 
 @Module({
   imports: [
@@ -12,7 +13,7 @@ import { User, UserSchema } from 'src/schemas/user.schema';
       'main',
     ),
   ],
-  controllers: [UsuarioController, AutenticacaoController],
+  controllers: [UsuarioController, AutenticacaoController, AuthorizerController],
   providers: [UsuarioService],
   exports: [UsuarioService],
 })

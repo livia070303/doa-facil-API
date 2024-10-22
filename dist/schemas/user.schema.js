@@ -24,11 +24,11 @@ __decorate([
 ], User.prototype, "nomeCompleto", void 0);
 __decorate([
     (0, mongoose_1.Prop)(),
-    __metadata("design:type", Number)
+    __metadata("design:type", String)
 ], User.prototype, "CPF", void 0);
 __decorate([
     (0, mongoose_1.Prop)(),
-    __metadata("design:type", Number)
+    __metadata("design:type", String)
 ], User.prototype, "telefone", void 0);
 __decorate([
     (0, mongoose_1.Prop)(),
