@@ -12,11 +12,11 @@ async function bootstrap() {
   const configService: ConfigService<Env, true> = app.get(ConfigService);
   const port = configService.get('PORT', { infer: true }) || 3000;
   dotenv.config();
-  app.enableCors({
-    origin: 'https://doa-facil.vercel.app',
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    credentials: true,
-  });
+  // app.enableCors({
+  //   origin: 'https://doa-facil.vercel.app',
+  //   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  //   credentials: true,
+  // });
 
 
   app.useGlobalPipes(new ValidationPipe());
