@@ -15,7 +15,6 @@ async function bootstrap() {
   app.enableCors({
     origin: 'https://doa-facil.vercel.app',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    allowedHeaders: 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization',
     credentials: true,
   });
 
