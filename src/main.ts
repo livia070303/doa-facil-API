@@ -13,7 +13,7 @@ async function bootstrap() {
   const port = configService.get('PORT', { infer: true }) || 3000;
   dotenv.config();
   app.enableCors({
-    origin: 'http://localhost:5173',
+    origin: 'https://doa-facil.vercel.app ',
     credentials: true,
   });
 
