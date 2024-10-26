@@ -19,12 +19,14 @@ export class AuthorizerController {
   async handler(@Req() req: Request, @Res() res: Response) {
     const userId = this.jwt.decode(req.cookies.dfaccTok)
 
+    const user = authenticateBodySchema.parse(userId);
+
     try {
-      const user = authenticateBodySchema.parse(userId);
 
       if (!user) {
         return res.status(400).json({ error: 'Token inválido' });
       }
+      
 
       const payload = {
         sub: user.sub,
@@ -42,8 +44,6 @@ export class AuthorizerController {
 @Controller('logout')
 export class LogoutController {
   constructor(
-   
-    
   ) {}
 
   @Get()

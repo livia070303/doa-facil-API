@@ -17,6 +17,7 @@ const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
 const user_schema_1 = require("../../schemas/user.schema");
+const crypto_1 = require("crypto");
 let UsuarioService = class UsuarioService {
     constructor(userModel) {
         this.userModel = userModel;
@@ -26,6 +27,7 @@ let UsuarioService = class UsuarioService {
     }
     async createCadastroUsuario(cadastroUsuario) {
         const model = new user_schema_1.User();
+        model.ID = (0, crypto_1.randomUUID)();
         model.nomeCompleto = cadastroUsuario.nomeCompleto;
         model.CPF = cadastroUsuario.CPF;
         model.telefone = cadastroUsuario.telefone;
@@ -41,12 +43,16 @@ let UsuarioService = class UsuarioService {
         return this.userModel.find();
     }
     async getCadastroUsuarioById(id) {
-        return this.userModel.findById(id);
+        const user = await this.userModel.findOne({
+            ID: id,
+        });
+        return user;
     }
     async getCadastroUsuarioByEmail(email) {
-        return this.userModel.findOne({
+        const user = await this.userModel.findOne({
             email: email,
-        });
+        }).exec();
+        return user;
     }
     async deleteCadastroUsuarioById(id) {
         await this.userModel.findByIdAndDelete(id);

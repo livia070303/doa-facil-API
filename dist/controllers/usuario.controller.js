@@ -25,7 +25,7 @@ let UsuarioController = class UsuarioController {
         createCadastroUsuarioDto.senha = await (0, bcryptjs_1.hash)(createCadastroUsuarioDto.senha, 8);
         const cadastro_usuario = await this.usuariosService.createCadastroUsuario(createCadastroUsuarioDto);
         return {
-            cadastro_usuario,
+            user: cadastro_usuario,
             message: 'Usuário cadastrado com sucesso',
         };
     }
@@ -34,6 +34,12 @@ let UsuarioController = class UsuarioController {
         return {
             cadastro_usuario: resposta,
             message: 'ok',
+        };
+    }
+    async getCadastroUsuarioById(id) {
+        const user = await this.usuariosService.getCadastroUsuarioById(id);
+        return {
+            user,
         };
     }
     async deleteCadastroUsuario(id) {
@@ -45,7 +51,7 @@ let UsuarioController = class UsuarioController {
     async atualizarCadastroUsuario(id, updateCadastroUsuarioDto) {
         const cadastroUsuario = await this.usuariosService.updateCadastroUsuarioById(id, updateCadastroUsuarioDto);
         return {
-            cadastro_usuario: cadastroUsuario,
+            user: cadastroUsuario,
             message: 'Cadastro do usuário atualizado com sucesso',
         };
     }
@@ -64,6 +70,13 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], UsuarioController.prototype, "getCadastroUsuarios", null);
+__decorate([
+    (0, common_1.Get)('/:id'),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], UsuarioController.prototype, "getCadastroUsuarioById", null);
 __decorate([
     (0, common_1.Delete)(':id'),
     __param(0, (0, common_1.Param)('id')),

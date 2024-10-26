@@ -1,7 +1,7 @@
 import { HydratedDocument } from 'mongoose';
 export type UserDocument = HydratedDocument<User>;
 export declare class User {
-    ID: number;
+    ID: string;
     nomeCompleto: string;
     CPF: string;
     telefone: string;

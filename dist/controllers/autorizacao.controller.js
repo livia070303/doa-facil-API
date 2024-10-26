@@ -25,8 +25,8 @@ let AuthorizerController = class AuthorizerController {
     }
     async handler(req, res) {
         const userId = this.jwt.decode(req.cookies.dfaccTok);
+        const user = authenticateBodySchema.parse(userId);
         try {
-            const user = authenticateBodySchema.parse(userId);
             if (!user) {
                 return res.status(400).json({ error: 'Token inválido' });
             }

@@ -6,6 +6,7 @@ export declare class UsuarioController {
     constructor(usuariosService: UsuarioService);
     createCadastroUsuario(createCadastroUsuarioDto: CadastroUsuarioDto): Promise<ReturnCadastroUsuarioDto>;
     getCadastroUsuarios(): Promise<ReturnListCadastroUsuarioDto>;
+    getCadastroUsuarioById(id: string): Promise<ReturnCadastroUsuarioDto>;
     deleteCadastroUsuario(id: string): Promise<any>;
     atualizarCadastroUsuario(id: string, updateCadastroUsuarioDto: updateCadastroUsuarioDto): Promise<ReturnCadastroUsuarioDto>;
 }

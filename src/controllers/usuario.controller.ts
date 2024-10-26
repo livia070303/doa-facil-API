@@ -35,7 +35,7 @@ export class UsuarioController {
       createCadastroUsuarioDto,
     );
     return {
-      cadastro_usuario,
+      user: cadastro_usuario,
       message: 'Usuário cadastrado com sucesso',
     };
   }
@@ -46,6 +46,18 @@ export class UsuarioController {
     return {
       cadastro_usuario: resposta,
       message: 'ok',
+    };
+  }
+
+  @Get('/:id')
+  async getCadastroUsuarioById(
+    @Param('id') id: string,
+  ): Promise<ReturnCadastroUsuarioDto> {
+    const user = await this.usuariosService.getCadastroUsuarioById(
+      id,
+    );
+    return {
+      user,
     };
   }
 
@@ -68,7 +80,7 @@ export class UsuarioController {
         updateCadastroUsuarioDto,
       );
     return {
-      cadastro_usuario: cadastroUsuario,
+      user: cadastroUsuario,
       message: 'Cadastro do usuário atualizado com sucesso',
     };
   }

@@ -10,6 +10,7 @@ import {
   updateCadastroUsuarioDto,
 } from './dto/cadastro_usuario_dto';
 import { User } from 'src/schemas/user.schema';
+import { randomUUID } from 'crypto';
 
 @Injectable()
 export class UsuarioService {
@@ -24,6 +25,7 @@ export class UsuarioService {
 
   async createCadastroUsuario(cadastroUsuario: CadastroUsuarioDto) {
     const model = new User();
+    model.ID = randomUUID();
     model.nomeCompleto = cadastroUsuario.nomeCompleto;
     model.CPF = cadastroUsuario.CPF;
     model.telefone = cadastroUsuario.telefone;
@@ -42,13 +44,21 @@ export class UsuarioService {
   }
 
   async getCadastroUsuarioById(id: string): Promise<User> {
-    return this.userModel.findById(id);
+    
+    const user = await this.userModel.findOne({
+      ID: id,
+    })
+    
+    return user
+   
   }
 
   async getCadastroUsuarioByEmail(email: string): Promise<User> {
-    return this.userModel.findOne({
+    const user = await this.userModel.findOne({
       email: email,
-    });
+    }).exec();
+    
+    return user
   }
 
   async deleteCadastroUsuarioById(id: string): Promise<void> {
