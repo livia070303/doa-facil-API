@@ -6,6 +6,8 @@ export declare class DonationController {
     private readonly donationService;
     constructor(donationService: DonationService);
     createDonation(createDonationDto: CreateDonationDto): Promise<ReturnDonationDto>;
+    getDonationByCategory(category: string): Promise<ReturnDonationDto>;
+    searchDonationByCategoryOrName(search: string): Promise<ReturnDonationDto>;
     getDonations(): Promise<ReturnListDonationDto>;
     getDonationById(id: string): Promise<ReturnDonationDto>;
     updateDonation(id: string, updateDonationDto: UpdateDonationDto): Promise<ReturnDonationDto>;

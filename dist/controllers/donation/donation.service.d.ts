@@ -9,6 +9,8 @@ export declare class DonationService {
     constructor(donationModel: Model<Donation>, userModel: Model<User>);
     createDonation(createDonationDto: CreateDonationDto): Promise<Donation>;
     getDonations(): Promise<Donation[]>;
+    getDonationByCategory(category: string): Promise<Donation[]>;
+    searchDonationByCategoryOrName(search: string): Promise<Donation[]>;
     getDonationById(id: string): Promise<Donation>;
     updateDonationById(id: string, updateDonationDto: UpdateDonationDto): Promise<Donation>;
     updateDonationStatus(id: string, status: 'available' | 'reserved' | 'received'): Promise<Donation>;

@@ -38,7 +38,37 @@ let DonationService = class DonationService {
     }
     async getDonations() {
         try {
-            return this.donationModel.find().populate('donor').populate('receiver').exec();
+            return this.donationModel.find().populate('donor').exec();
+        }
+        catch (error) {
+            throw new common_1.InternalServerErrorException('Erro ao buscar doações: ' + error.message);
+        }
+    }
+    async getDonationByCategory(category) {
+        try {
+            const donation = await this.donationModel.find({ category: category }).populate('donor').exec();
+            if (!donation) {
+                throw new common_1.NotFoundException(`Nenhum item com a categoria :"${category}" foi encontrada`);
+            }
+            return donation;
+        }
+        catch (error) {
+            throw new common_1.InternalServerErrorException('Erro ao buscar doações por categoria: ' + error.message);
+        }
+    }
+    async searchDonationByCategoryOrName(search) {
+        try {
+            const searchCriteria = {
+                $or: [
+                    { productName: { $regex: search, $options: 'i' } },
+                    { category: { $regex: search, $options: 'i' } },
+                ],
+            };
+            const donation = await this.donationModel.find(searchCriteria).populate('donor').exec();
+            if (!donation) {
+                throw new common_1.NotFoundException(`Nenhum item foi encontrada na busca`);
+            }
+            return donation;
         }
         catch (error) {
             throw new common_1.InternalServerErrorException('Erro ao buscar doações: ' + error.message);

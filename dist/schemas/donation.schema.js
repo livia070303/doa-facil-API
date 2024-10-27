@@ -40,6 +40,14 @@ __decorate([
     __metadata("design:type", Number)
 ], Donation.prototype, "quantity", void 0);
 __decorate([
+    (0, mongoose_1.Prop)({ required: true }),
+    __metadata("design:type", Number)
+], Donation.prototype, "numberShoes", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ enum: ['PP', 'P', 'M', 'G', 'GG'] }),
+    __metadata("design:type", String)
+], Donation.prototype, "tamanhos", void 0);
+__decorate([
     (0, mongoose_1.Prop)({ enum: ['available', 'reserved', 'received'], default: 'available' }),
     __metadata("design:type", String)
 ], Donation.prototype, "status", void 0);
@@ -49,7 +57,7 @@ __decorate([
 ], Donation.prototype, "receiver", void 0);
 __decorate([
     (0, mongoose_1.Prop)(),
-    __metadata("design:type", String)
+    __metadata("design:type", Array)
 ], Donation.prototype, "image", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ default: Date.now }),

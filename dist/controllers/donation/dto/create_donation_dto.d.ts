@@ -4,6 +4,8 @@ export declare class CreateDonationDto {
     category: string;
     condition: 'novo' | 'usado' | 'precisa de reparos';
     quantity: number;
-    image: string;
+    image: string[];
+    numberShoes: number;
+    tamanhos: 'PP' | 'P' | 'M' | 'G' | 'GG';
     donor: string;
 }

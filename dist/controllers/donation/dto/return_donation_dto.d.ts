@@ -1,5 +1,5 @@
 export declare class ReturnDonationDto {
-    donation: any;
+    donations: any;
     message: string;
 }
 export declare class ReturnListDonationDto {

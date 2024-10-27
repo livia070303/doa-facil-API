@@ -7,9 +7,11 @@ export declare class Donation {
     category: string;
     condition: 'novo' | 'usado' | 'precisa de reparos';
     quantity: number;
+    numberShoes: number;
+    tamanhos: 'PP' | 'P' | 'M' | 'G' | 'GG';
     status: 'available' | 'reserved' | 'received';
     receiver?: Types.ObjectId | null;
-    image: string;
+    image: string[];
     createdAt: Date;
     updatedAt: Date;
 }

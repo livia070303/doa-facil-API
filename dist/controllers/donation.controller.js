@@ -22,10 +22,24 @@ let DonationController = class DonationController {
         this.donationService = donationService;
     }
     async createDonation(createDonationDto) {
-        const donation = await this.donationService.createDonation(createDonationDto);
+        const donations = await this.donationService.createDonation(createDonationDto);
         return {
-            donation,
+            donations,
             message: 'Doação criada com sucesso',
+        };
+    }
+    async getDonationByCategory(category) {
+        const donations = await this.donationService.getDonationByCategory(category);
+        return {
+            donations,
+            message: 'Busca de Doação por categoria realizada com sucesso',
+        };
+    }
+    async searchDonationByCategoryOrName(search) {
+        const donations = await this.donationService.searchDonationByCategoryOrName(search);
+        return {
+            donations,
+            message: 'Busca de Doação realizada com sucesso',
         };
     }
     async getDonations() {
@@ -36,23 +50,23 @@ let DonationController = class DonationController {
         };
     }
     async getDonationById(id) {
-        const donation = await this.donationService.getDonationById(id);
+        const donations = await this.donationService.getDonationById(id);
         return {
-            donation,
+            donations,
             message: 'Doação recuperada com sucesso',
         };
     }
     async updateDonation(id, updateDonationDto) {
         const updatedDonation = await this.donationService.updateDonationById(id, updateDonationDto);
         return {
-            donation: updatedDonation,
+            donations: updatedDonation,
             message: 'Doação atualizada com sucesso',
         };
     }
     async updateDonationStatus(id, status) {
         const updatedDonation = await this.donationService.updateDonationStatus(id, status);
         return {
-            donation: updatedDonation,
+            donations: updatedDonation,
             message: 'Status da doação atualizado com sucesso',
         };
     }
@@ -71,6 +85,20 @@ __decorate([
     __metadata("design:paramtypes", [create_donation_dto_1.CreateDonationDto]),
     __metadata("design:returntype", Promise)
 ], DonationController.prototype, "createDonation", null);
+__decorate([
+    (0, common_1.Get)('category'),
+    __param(0, (0, common_1.Query)('category')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], DonationController.prototype, "getDonationByCategory", null);
+__decorate([
+    (0, common_1.Get)('search'),
+    __param(0, (0, common_1.Query)('search')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], DonationController.prototype, "searchDonationByCategoryOrName", null);
 __decorate([
     (0, common_1.Get)(),
     __metadata("design:type", Function),
