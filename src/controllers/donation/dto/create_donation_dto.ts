@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString, IsNumber, IsEnum, IsObject } from 'class-validator';
+import { IsNotEmpty, IsString, IsNumber, IsEnum, IsObject, IsArray } from 'class-validator';
 import { isValidObjectId } from 'mongoose';
 
 export class CreateDonationDto {
@@ -20,8 +20,18 @@ export class CreateDonationDto {
   @IsNumber()
   quantity: number;  
   
-  @IsString()
-  image: string; 
+  @IsArray()
+  @IsString({ each: true })
+  @IsNotEmpty({ each: true })
+  image: string[]; 
+
+  @IsNotEmpty()
+  @IsNumber()
+  numberShoes: number;
+
+  @IsNotEmpty()
+  @IsEnum(['PP', 'P', 'M', 'G', 'GG'])
+  tamanhos: 'PP'| 'P'| 'M'| 'G'| 'GG';
 
   @IsNotEmpty()
   @IsString()

@@ -7,6 +7,7 @@ import {
   Delete,
   Param,
   Patch,
+  Query,
 } from '@nestjs/common';
 import { DonationService } from '../controllers/donation/donation.service';
 import { CreateDonationDto } from '../controllers/donation/dto/create_donation_dto';
@@ -21,10 +22,28 @@ export class DonationController {
   async createDonation(
     @Body() createDonationDto: CreateDonationDto,
   ): Promise<ReturnDonationDto> {
-    const donation = await this.donationService.createDonation(createDonationDto);
+    const donations = await this.donationService.createDonation(createDonationDto);
     return {
-      donation,
+      donations,
       message: 'Doação criada com sucesso',
+    };
+  }
+
+  @Get('category')
+  async getDonationByCategory(@Query('category') category: string): Promise<ReturnDonationDto> {
+    const donations = await this.donationService.getDonationByCategory(category);
+    return {
+      donations,
+      message: 'Busca de Doação por categoria realizada com sucesso',
+    };
+  }
+
+  @Get('search')
+  async searchDonationByCategoryOrName(@Query('search') search: string): Promise<ReturnDonationDto> {
+    const donations = await this.donationService.searchDonationByCategoryOrName(search);
+    return {
+      donations,
+      message: 'Busca de Doação realizada com sucesso',
     };
   }
 
@@ -39,13 +58,13 @@ export class DonationController {
 
   @Get(':id')
   async getDonationById(@Param('id') id: string): Promise<ReturnDonationDto> {
-    const donation = await this.donationService.getDonationById(id);
+    const donations = await this.donationService.getDonationById(id);
     return {
-      donation,
+      donations,
       message: 'Doação recuperada com sucesso',
     };
   }
-
+ 
   @Put(':id')
   async updateDonation(
     @Param('id') id: string,
@@ -53,7 +72,7 @@ export class DonationController {
   ): Promise<ReturnDonationDto> {
     const updatedDonation = await this.donationService.updateDonationById(id, updateDonationDto);
     return {
-      donation: updatedDonation,
+      donations: updatedDonation,
       message: 'Doação atualizada com sucesso',
     };
   }
@@ -65,7 +84,7 @@ export class DonationController {
   ): Promise<ReturnDonationDto> {
     const updatedDonation = await this.donationService.updateDonationStatus(id, status);
     return {
-      donation: updatedDonation,
+      donations: updatedDonation,
       message: 'Status da doação atualizado com sucesso',
     };
   }

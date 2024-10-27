@@ -23,6 +23,12 @@ export class Donation {
   @Prop({ required: true })
   quantity: number;  
 
+  @Prop({ required: true })
+  numberShoes: number;
+
+  @Prop({ enum: ['PP', 'P', 'M', 'G', 'GG'] })
+  tamanhos: 'PP'| 'P'| 'M'| 'G'| 'GG';
+
   @Prop({ enum: ['available', 'reserved', 'received'], default: 'available' })
   status: 'available' | 'reserved' | 'received';  
 
@@ -30,7 +36,7 @@ export class Donation {
   receiver?: Types.ObjectId | null;  
 
   @Prop()
-  image : string;
+  image : string[];
 
   @Prop({ default: Date.now })
   createdAt: Date;  

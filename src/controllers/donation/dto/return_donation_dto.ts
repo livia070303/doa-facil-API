@@ -1,5 +1,5 @@
 export class ReturnDonationDto {
-    donation: any; 
+    donations: any; 
     message: string;
   }
   

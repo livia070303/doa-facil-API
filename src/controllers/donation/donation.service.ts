@@ -40,13 +40,54 @@ export class DonationService {
 
   async getDonations(): Promise<Donation[]> {
     try {
-      return this.donationModel.find().populate('donor').populate('receiver').exec();
+      return this.donationModel.find().populate('donor').exec();
     } catch (error) {
       throw new InternalServerErrorException(
         'Erro ao buscar doações: ' + error.message,
       );
     }
   }
+
+  // Buscar doação por Categoria
+  async getDonationByCategory(category: string): Promise<Donation[]> {
+    try {
+      const donation = await this.donationModel.find({ category: category }).populate('donor').exec();
+      if (!donation) {
+        throw new NotFoundException(`Nenhum item com a categoria :"${category}" foi encontrada`);
+      }
+      return donation;
+
+    } catch (error) {
+      throw new InternalServerErrorException(
+        'Erro ao buscar doações por categoria: ' + error.message,
+      );
+    }
+  }
+
+  // Buscar doação por Categoria ou pelo name
+  async searchDonationByCategoryOrName(search: string): Promise<Donation[]> {
+    try {
+      
+      const searchCriteria = {
+        $or: [
+          { productName: { $regex: search, $options: 'i' } }, // Busca no nome do produto
+          { category: { $regex: search, $options: 'i' } },   // Busca na categoria
+        ],
+      };
+
+      const donation = await this.donationModel.find(searchCriteria).populate('donor').exec();
+      if (!donation) {
+        throw new NotFoundException(`Nenhum item foi encontrada na busca`);
+      }
+      return donation;
+
+    } catch (error) {
+      throw new InternalServerErrorException(
+        'Erro ao buscar doações: ' + error.message,
+      );
+    }
+  }
+
 
   // Buscar doação por ID
   async getDonationById(id: string): Promise<Donation> {
