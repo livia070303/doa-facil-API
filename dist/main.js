@@ -14,6 +14,11 @@ async function bootstrap() {
     const port = configService.get('PORT', { infer: true }) || 3000;
     dotenv.config();
     app.use(cookieParser());
+    app.enableCors({
+        origin: false,
+        methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+        credentials: true,
+    });
     app.useGlobalPipes(new common_1.ValidationPipe());
     await app.listen(port);
 }

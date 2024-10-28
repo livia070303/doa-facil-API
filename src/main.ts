@@ -17,13 +17,13 @@ async function bootstrap() {
 
   app.use(cookieParser());
 
-  // app.enableCors({
-  //   origin: '*',
-  //   // origin: 'https://doa-facil.vercel.app',
-  //   // origin: 'http://localhost:5173',
-  //   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  //   credentials: true,
-  // });
+  app.enableCors({
+    origin: false,
+    // origin: 'https://doa-facil.vercel.app',
+    // origin: 'http://localhost:5173',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+  });
 
   app.useGlobalPipes(new ValidationPipe());
 
