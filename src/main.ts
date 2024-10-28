@@ -22,7 +22,7 @@ async function bootstrap() {
     // origin: 'https://doa-facil.vercel.app',
     // origin: 'http://localhost:5173',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    credentials: true,
+    // credentials: true,
   });
 
   app.useGlobalPipes(new ValidationPipe());
