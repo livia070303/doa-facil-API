@@ -15,9 +15,8 @@ async function bootstrap() {
     dotenv.config();
     app.use(cookieParser());
     app.enableCors({
+        allowedHeaders: '*',
         origin: '*',
-        methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-        credentials: true,
     });
     app.useGlobalPipes(new common_1.ValidationPipe());
     await app.listen(port);
