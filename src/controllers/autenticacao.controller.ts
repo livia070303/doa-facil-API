@@ -41,19 +41,18 @@ export class AutenticacaoController {
     }
 
     const isPasswordValid = await compare(senha, usuario.senha);
-    
+
     if (!isPasswordValid) {
       throw new UnauthorizedException('Dados Incorretos');
     }
-  
-    const accessToken = this.jwt.sign({ sub: usuario.ID });
 
+    const accessToken = this.jwt.sign({ sub: usuario.ID });
 
     res.cookie('dfaccTok', accessToken, {
       expires: new Date(Date.now() + 1000 * 60 * 60 * 24), // 24 hour
       httpOnly: true,
       secure: false,
-      sameSite: 'lax',
+      sameSite: 'none',
     });
 
     const payload = {

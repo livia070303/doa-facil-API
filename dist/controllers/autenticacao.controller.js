@@ -43,7 +43,7 @@ let AutenticacaoController = class AutenticacaoController {
             expires: new Date(Date.now() + 1000 * 60 * 60 * 24),
             httpOnly: true,
             secure: false,
-            sameSite: 'lax',
+            sameSite: 'none',
         });
         const payload = {
             accessToken_token: accessToken,
