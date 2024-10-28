@@ -24,10 +24,6 @@ async function bootstrap() {
   //   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   //   credentials: true,
   // });
-  app.enableCors({
-    allowedHeaders: '*',
-    origin: '*',
-  });
 
   app.useGlobalPipes(new ValidationPipe());
 
