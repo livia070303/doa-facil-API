@@ -12,8 +12,8 @@
       "dest": "dist/main.js",
       "methods": ["GET", "POST", "PUT", "PATCH", "DELETE", "HEAD", "OPTIONS"],
       "headers": {
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Credentials": "true"
+        "Access-Control-Allow-Origin": "*"
+        
       }
     }
   ]
