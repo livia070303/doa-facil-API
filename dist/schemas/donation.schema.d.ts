@@ -8,7 +8,7 @@ export declare class Donation {
     condition: 'novo' | 'usado' | 'precisa de reparos';
     quantity: number;
     numberShoes: number;
-    tamanhos: 'PP' | 'P' | 'M' | 'G' | 'GG';
+    tamanhos: 'PP' | 'P' | 'M' | 'G' | 'GG' | '';
     status: 'available' | 'reserved' | 'received';
     receiver?: Types.ObjectId | null;
     image: string[];

@@ -6,6 +6,6 @@ export declare class CreateDonationDto {
     quantity: number;
     image: string[];
     numberShoes: number;
-    tamanhos: 'PP' | 'P' | 'M' | 'G' | 'GG';
+    tamanhos: 'PP' | 'P' | 'M' | 'G' | 'GG' | '';
     donor: string;
 }

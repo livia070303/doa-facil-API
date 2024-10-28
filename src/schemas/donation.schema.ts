@@ -26,8 +26,8 @@ export class Donation {
   @Prop({ required: true })
   numberShoes: number;
 
-  @Prop({ enum: ['PP', 'P', 'M', 'G', 'GG'] })
-  tamanhos: 'PP'| 'P'| 'M'| 'G'| 'GG';
+  @Prop({ enum: ['PP', 'P', 'M', 'G', 'GG', ''] })
+  tamanhos: 'PP'| 'P'| 'M'| 'G'| 'GG' | '';
 
   @Prop({ enum: ['available', 'reserved', 'received'], default: 'available' })
   status: 'available' | 'reserved' | 'received';  

@@ -44,7 +44,7 @@ __decorate([
     __metadata("design:type", Number)
 ], Donation.prototype, "numberShoes", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ enum: ['PP', 'P', 'M', 'G', 'GG'] }),
+    (0, mongoose_1.Prop)({ enum: ['PP', 'P', 'M', 'G', 'GG', ''] }),
     __metadata("design:type", String)
 ], Donation.prototype, "tamanhos", void 0);
 __decorate([

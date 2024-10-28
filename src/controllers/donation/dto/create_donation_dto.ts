@@ -25,13 +25,13 @@ export class CreateDonationDto {
   @IsNotEmpty({ each: true })
   image: string[]; 
 
-  @IsNotEmpty()
+  // @IsNotEmpty()
   @IsNumber()
   numberShoes: number;
 
-  @IsNotEmpty()
-  @IsEnum(['PP', 'P', 'M', 'G', 'GG'])
-  tamanhos: 'PP'| 'P'| 'M'| 'G'| 'GG';
+  // @IsNotEmpty()
+  @IsEnum(['PP', 'P', 'M', 'G', 'GG', ''])
+  tamanhos: 'PP'| 'P'| 'M'| 'G'| 'GG' | '';
 
   @IsNotEmpty()
   @IsString()

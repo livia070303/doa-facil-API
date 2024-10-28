@@ -45,13 +45,11 @@ __decorate([
     __metadata("design:type", Array)
 ], CreateDonationDto.prototype, "image", void 0);
 __decorate([
-    (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.IsNumber)(),
     __metadata("design:type", Number)
 ], CreateDonationDto.prototype, "numberShoes", void 0);
 __decorate([
-    (0, class_validator_1.IsNotEmpty)(),
-    (0, class_validator_1.IsEnum)(['PP', 'P', 'M', 'G', 'GG']),
+    (0, class_validator_1.IsEnum)(['PP', 'P', 'M', 'G', 'GG', '']),
     __metadata("design:type", String)
 ], CreateDonationDto.prototype, "tamanhos", void 0);
 __decorate([
