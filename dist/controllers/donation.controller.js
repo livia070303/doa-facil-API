@@ -42,6 +42,13 @@ let DonationController = class DonationController {
             message: 'Busca de Doação realizada com sucesso',
         };
     }
+    async getDonationRecents(limit) {
+        const donations = await this.donationService.getDonationRecents(limit);
+        return {
+            donations,
+            message: 'Busca de Doação realizada com sucesso',
+        };
+    }
     async getDonations() {
         const donations = await this.donationService.getDonations();
         return {
@@ -99,6 +106,13 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], DonationController.prototype, "searchDonationByCategoryOrName", null);
+__decorate([
+    (0, common_1.Get)('recents'),
+    __param(0, (0, common_1.Query)('limit')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number]),
+    __metadata("design:returntype", Promise)
+], DonationController.prototype, "getDonationRecents", null);
 __decorate([
     (0, common_1.Get)(),
     __metadata("design:type", Function),

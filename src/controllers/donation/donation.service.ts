@@ -48,6 +48,27 @@ export class DonationService {
     }
   }
 
+  //Busca 4 doações recentes
+  async getDonationRecents(limit : number): Promise<Donation[]> {
+    try {
+      const query = this.donationModel
+      .find()
+      .sort({ createdAt: -1 })// Ordena pela data de criação, do mais recente para o mais antigo
+      .populate('donor');
+  
+      if (limit && limit > 0) {
+        query.limit(limit); // Limita o resultado dos mais recentes
+      }
+      
+      return query.exec();
+
+    } catch (error) {
+      throw new InternalServerErrorException(
+        'Erro ao buscar doações: ' + error.message,
+      );
+    }
+  }
+
   // Buscar doação por Categoria
   async getDonationByCategory(category: string): Promise<Donation[]> {
     try {

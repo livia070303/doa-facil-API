@@ -44,6 +44,21 @@ let DonationService = class DonationService {
             throw new common_1.InternalServerErrorException('Erro ao buscar doações: ' + error.message);
         }
     }
+    async getDonationRecents(limit) {
+        try {
+            const query = this.donationModel
+                .find()
+                .sort({ createdAt: -1 })
+                .populate('donor');
+            if (limit && limit > 0) {
+                query.limit(limit);
+            }
+            return query.exec();
+        }
+        catch (error) {
+            throw new common_1.InternalServerErrorException('Erro ao buscar doações: ' + error.message);
+        }
+    }
     async getDonationByCategory(category) {
         try {
             const donation = await this.donationModel.find({ category: category }).populate('donor').exec();

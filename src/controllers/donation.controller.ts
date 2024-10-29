@@ -46,6 +46,15 @@ export class DonationController {
       message: 'Busca de Doação realizada com sucesso',
     };
   }
+  
+  @Get('recents')
+  async getDonationRecents(@Query('limit') limit: number): Promise<ReturnDonationDto> {
+    const donations = await this.donationService.getDonationRecents(limit);
+    return {
+      donations,
+      message: 'Busca de Doação realizada com sucesso',
+    };
+  }
 
   @Get()
   async getDonations(): Promise<ReturnListDonationDto> {
