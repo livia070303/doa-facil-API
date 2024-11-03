@@ -40,9 +40,9 @@ let FavoriteService = class FavoriteService {
         return this.favoriteModel.create(model);
     }
     async getAllFavorites(userId) {
-        const user = await this.favoriteModel.findOne({
+        const user = await this.favoriteModel.find({
             userId: userId,
-        });
+        }).populate('donationId');
         return user;
     }
     async delete(userId, donationId) {

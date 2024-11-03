@@ -37,8 +37,8 @@ let UsuarioController = class UsuarioController {
             message: 'Favorito criado com sucesso',
         };
     }
-    async deleteFavorite(body) {
-        const { userId, donationId } = body;
+    async deleteFavorite(query) {
+        const { userId, donationId } = query;
         await this.favoriteService.delete(userId, donationId);
         return {
             message: 'Favorito excluído com sucesso',
@@ -96,7 +96,7 @@ __decorate([
 ], UsuarioController.prototype, "createFavorite", null);
 __decorate([
     (0, common_1.Delete)('favorite'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Query)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)

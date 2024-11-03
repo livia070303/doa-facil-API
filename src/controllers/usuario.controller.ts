@@ -6,6 +6,7 @@ import {
   Put,
   Delete,
   Param,
+  Query,
 } from '@nestjs/common';
 import { UsuarioService } from './usuario/usuario.service';
 import {
@@ -43,8 +44,8 @@ export class UsuarioController {
   }
 
   @Delete('favorite')
-  async deleteFavorite(@Body() body: { userId: string; donationId: string }): Promise<any> {
-      const { userId, donationId } = body;
+  async deleteFavorite(@Query() query: { userId: string; donationId: string }): Promise<any> {
+    const { userId, donationId } = query;
 
       await this.favoriteService.delete(userId, donationId);
   

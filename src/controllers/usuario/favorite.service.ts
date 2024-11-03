@@ -48,17 +48,17 @@ export class FavoriteService {
     return this.favoriteModel.create(model);
   }
 
-  async getAllFavorites(userId: string): Promise<Favorite> {
-    const user = await this.favoriteModel.findOne({
+  async getAllFavorites(userId: string): Promise<Favorite[]> {
+    const user = await this.favoriteModel.find({
       userId: userId,
-    });
+    }).populate('donationId');
 
     return user;
   }
 
 
   async delete(userId: string, donationId: string): Promise<void> {
-    const donation = await this.donationModel.findById(donationId ).exec();
+    const donation = await this.donationModel.findById(donationId).exec();
 
     if (!donation) {
       throw new NotFoundException(

@@ -11,7 +11,7 @@ export declare class UsuarioController {
         userId: string;
         donationId: string;
     }): Promise<any>;
-    deleteFavorite(body: {
+    deleteFavorite(query: {
         userId: string;
         donationId: string;
     }): Promise<any>;

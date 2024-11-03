@@ -10,6 +10,6 @@ export declare class FavoriteService {
     create(userId: string, donationId: string): Promise<import("mongoose").Document<unknown, {}, Favorite> & Favorite & {
         _id: import("mongoose").Types.ObjectId;
     }>;
-    getAllFavorites(userId: string): Promise<Favorite>;
+    getAllFavorites(userId: string): Promise<Favorite[]>;
     delete(userId: string, donationId: string): Promise<void>;
 }
