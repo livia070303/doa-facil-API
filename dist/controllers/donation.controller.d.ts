@@ -9,6 +9,7 @@ export declare class DonationController {
     getDonationByCategory(category: string): Promise<ReturnDonationDto>;
     searchDonationByCategoryOrName(search: string): Promise<ReturnDonationDto>;
     getDonationRecents(limit: number): Promise<ReturnDonationDto>;
+    getDonationsByDonor(donorId: string): Promise<ReturnDonationDto>;
     getDonations(): Promise<ReturnListDonationDto>;
     getDonationById(id: string): Promise<ReturnDonationDto>;
     updateDonation(id: string, updateDonationDto: UpdateDonationDto): Promise<ReturnDonationDto>;

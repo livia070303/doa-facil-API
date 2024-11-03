@@ -10,6 +10,7 @@ export declare class DonationService {
     createDonation(createDonationDto: CreateDonationDto): Promise<Donation>;
     getDonations(): Promise<Donation[]>;
     getDonationRecents(limit: number): Promise<Donation[]>;
+    getDonationsByUser(donorId: string): Promise<Donation[]>;
     getDonationByCategory(category: string): Promise<Donation[]>;
     searchDonationByCategoryOrName(search: string): Promise<Donation[]>;
     getDonationById(id: string): Promise<Donation>;

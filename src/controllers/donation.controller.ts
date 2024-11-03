@@ -56,6 +56,15 @@ export class DonationController {
     };
   }
 
+  @Get('donor/:donorId')
+  async getDonationsByDonor(@Param('donorId') donorId: string): Promise<ReturnDonationDto> {
+    const donations = await this.donationService.getDonationsByUser(donorId); 
+    return {
+      donations,
+      message: 'Busca de doações do doador realizada com sucesso',
+    };
+  }
+
   @Get()
   async getDonations(): Promise<ReturnListDonationDto> {
     const donations = await this.donationService.getDonations();

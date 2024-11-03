@@ -5,7 +5,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 import { Donation} from '../../schemas/donation.schema';
 import { CreateDonationDto } from '../donation/dto/create_donation_dto';
 import { UpdateDonationDto } from '../donation/dto/update_donation_dto';
@@ -69,6 +69,16 @@ export class DonationService {
     }
   }
 
+  // Buscar doação por doador
+  async getDonationsByUser(donorId: string): Promise<Donation[]> {
+    try {
+      return await this.donationModel.find({ donor: donorId }).exec();
+    } catch (error) {
+      throw new InternalServerErrorException(`Erro ao buscar doações do doador: ${error.message}`);
+    }
+  }
+
+  
   // Buscar doação por Categoria
   async getDonationByCategory(category: string): Promise<Donation[]> {
     try {
