@@ -18,18 +18,18 @@ async function bootstrap() {
   app.use(cookieParser());
 
   app.enableCors({
-    // origin: (origin, callback) => {
-    //   const allowedOrigins = [
-    //     'http://localhost:5173',
-    //     'https://doa-facil.vercel.app',
-    //   ];
-    //   if (allowedOrigins.includes(origin) || !origin) {
-    //     callback(null, true);
-    //   } else {
-    //     callback(new Error('Not allowed'));
-    //   }
-    // },
-    origin: 'http://localhost:5173',
+    origin: (origin, callback) => {
+      const allowedOrigins = [
+        'http://localhost:5173',
+        'https://doa-facil.vercel.app',
+      ];
+      if (allowedOrigins.includes(origin) || !origin) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed'));
+      }
+    },
+    // origin: 'http://localhost:5173',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
   });
