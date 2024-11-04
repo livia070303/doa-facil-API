@@ -17,12 +17,10 @@ const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
 const chat_schema_1 = require("../../schemas/chat.schema");
-const message_schema_1 = require("../../schemas/message.schema");
 const user_schema_1 = require("../../schemas/user.schema");
 let ChatService = class ChatService {
-    constructor(chatModel, messageModel, userModel) {
+    constructor(chatModel, userModel) {
         this.chatModel = chatModel;
-        this.messageModel = messageModel;
         this.userModel = userModel;
     }
     async sendMessage(user1, user2, message) {
@@ -58,27 +56,6 @@ let ChatService = class ChatService {
         }
         catch (error) {
             throw new common_1.InternalServerErrorException('Erro ao criar da mensagem: ' + error.message);
-        }
-    }
-    async GetMessage(user1, user2) {
-        try {
-            const chatItem = await this.chatModel.findOne({
-                $or: [
-                    { userIdFirst: user1, userIdSecond: user2 },
-                    { userIdSecond: user1, userIdFirst: user2 },
-                ],
-            });
-            console.log(chatItem);
-            if (!chatItem) {
-                throw new common_1.NotFoundException(`Não existe mensagens trocadas entre esses usuários`);
-            }
-            const listaMensagens = await this.messageModel.find({
-                IdChat: chatItem.id,
-            });
-            return listaMensagens;
-        }
-        catch (error) {
-            throw new common_1.InternalServerErrorException('Erro ao buscar da mensagem: ' + error.message);
         }
     }
     async getLastMessages(userId) {
@@ -141,10 +118,8 @@ exports.ChatService = ChatService;
 exports.ChatService = ChatService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, mongoose_1.InjectModel)(chat_schema_1.Chat.name, 'main')),
-    __param(1, (0, mongoose_1.InjectModel)(message_schema_1.Message.name, 'main')),
-    __param(2, (0, mongoose_1.InjectModel)(user_schema_1.User.name, 'main')),
+    __param(1, (0, mongoose_1.InjectModel)(user_schema_1.User.name, 'main')),
     __metadata("design:paramtypes", [mongoose_2.Model,
-        mongoose_2.Model,
         mongoose_2.Model])
 ], ChatService);
 //# sourceMappingURL=chat.service.js.map

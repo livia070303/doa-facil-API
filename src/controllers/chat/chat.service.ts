@@ -4,9 +4,8 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model, Types } from 'mongoose';
+import { Model } from 'mongoose';
 import { Chat } from 'src/schemas/chat.schema';
-import { Message } from 'src/schemas/message.schema';
 import { User } from 'src/schemas/user.schema';
 
 @Injectable()
@@ -14,8 +13,6 @@ export class ChatService {
   constructor(
     @InjectModel(Chat.name, 'main')
     private chatModel: Model<Chat>,
-    @InjectModel(Message.name, 'main')
-    private messageModel: Model<Message>,
     @InjectModel(User.name, 'main')
     private userModel: Model<User>,
   ) {}
@@ -60,36 +57,6 @@ export class ChatService {
     } catch (error) {
       throw new InternalServerErrorException(
         'Erro ao criar da mensagem: ' + error.message,
-      );
-    }
-  }
-
-  async GetMessage(
-    user1: Types.ObjectId,
-    user2: Types.ObjectId,
-  ): Promise<Message[]> {
-    try {
-      const chatItem = await this.chatModel.findOne({
-        $or: [
-          { userIdFirst: user1, userIdSecond: user2 },
-          { userIdSecond: user1, userIdFirst: user2 },
-        ],
-      });
-      console.log(chatItem);
-      if (!chatItem) {
-        throw new NotFoundException(
-          `Não existe mensagens trocadas entre esses usuários`,
-        );
-      }
-
-      const listaMensagens = await this.messageModel.find({
-        IdChat: chatItem.id,
-      });
-
-      return listaMensagens;
-    } catch (error) {
-      throw new InternalServerErrorException(
-        'Erro ao buscar da mensagem: ' + error.message,
       );
     }
   }

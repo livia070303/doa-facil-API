@@ -15,7 +15,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ChatController = void 0;
 const common_1 = require("@nestjs/common");
 const chat_service_1 = require("./chat/chat.service");
-const mongoose_1 = require("mongoose");
 let ChatController = class ChatController {
     constructor(chatService) {
         this.chatService = chatService;
@@ -29,14 +28,6 @@ let ChatController = class ChatController {
             throw new common_1.BadRequestException('Nenhuma mensagem encontrada');
         }
         return messages;
-    }
-    async getMessages(user1, user2) {
-        if (!mongoose_1.Types.ObjectId.isValid(user1) || !mongoose_1.Types.ObjectId.isValid(user2)) {
-            throw new common_1.BadRequestException('IDs de usuário inválidos');
-        }
-        const userIdFirst = new mongoose_1.Types.ObjectId(user1);
-        const userIdSecond = new mongoose_1.Types.ObjectId(user2);
-        return this.chatService.GetMessage(userIdFirst, userIdSecond);
     }
 };
 exports.ChatController = ChatController;
@@ -56,14 +47,6 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], ChatController.prototype, "getLastMessages", null);
-__decorate([
-    (0, common_1.Get)('get-messages'),
-    __param(0, (0, common_1.Param)('user1')),
-    __param(1, (0, common_1.Param)('user2')),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, String]),
-    __metadata("design:returntype", Promise)
-], ChatController.prototype, "getMessages", null);
 exports.ChatController = ChatController = __decorate([
     (0, common_1.Controller)('chat'),
     __metadata("design:paramtypes", [chat_service_1.ChatService])
