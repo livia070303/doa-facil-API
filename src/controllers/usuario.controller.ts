@@ -53,9 +53,7 @@ export class UsuarioController {
   async getCadastroUsuarioById(
     @Param('id') id: string,
   ): Promise<ReturnCadastroUsuarioDto> {
-    const user = await this.usuariosService.getCadastroUsuarioById(
-      id,
-    );
+    const user = await this.usuariosService.getCadastroUsuarioById(id);
     return {
       user,
     };

@@ -5,18 +5,17 @@ export type MessageDocument = HydratedDocument<Message>;
 
 @Schema()
 export class Message {
-    @Prop({ type: Types.ObjectId, ref: 'User', required: true })
-    userSend: Types.ObjectId;  
+  @Prop({ type: Types.ObjectId, ref: 'User', required: true })
+  userSend: string;
 
-    @Prop({ type: Types.ObjectId, ref: 'Chat', required: true })
-    IdChat: Types.ObjectId; 
+  @Prop({ type: Types.ObjectId, refPath: 'Chat.ID', required: true })
+  IdChat: Types.ObjectId;
 
-    @Prop()
-    ConteudoMessage:string;
+  @Prop()
+  ConteudoMessage: string;
 
-    @Prop()
-    Timespam: Date; 
-
+  @Prop()
+  Timespam: Date;
 }
 
 export const MessageSchema = SchemaFactory.createForClass(Message);

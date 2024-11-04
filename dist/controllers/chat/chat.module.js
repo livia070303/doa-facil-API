@@ -13,6 +13,7 @@ const chat_service_1 = require("./chat.service");
 const chat_controller_1 = require("../chat.controller");
 const chat_schema_1 = require("../../schemas/chat.schema");
 const message_schema_1 = require("../../schemas/message.schema");
+const user_schema_1 = require("../../schemas/user.schema");
 let ChatModule = class ChatModule {
 };
 exports.ChatModule = ChatModule;
@@ -22,6 +23,7 @@ exports.ChatModule = ChatModule = __decorate([
             mongoose_1.MongooseModule.forFeature([
                 { name: chat_schema_1.Chat.name, schema: chat_schema_1.ChatSchema },
                 { name: message_schema_1.Message.name, schema: message_schema_1.MessageSchema },
+                { name: user_schema_1.User.name, schema: user_schema_1.UserSchema },
             ], 'main'),
         ],
         providers: [chat_service_1.ChatService],

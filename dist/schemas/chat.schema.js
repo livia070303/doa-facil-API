@@ -16,6 +16,10 @@ let Chat = class Chat {
 };
 exports.Chat = Chat;
 __decorate([
+    (0, mongoose_1.Prop)(),
+    __metadata("design:type", String)
+], Chat.prototype, "ID", void 0);
+__decorate([
     (0, mongoose_1.Prop)({ type: mongoose_2.Types.ObjectId, ref: 'User', required: true }),
     __metadata("design:type", mongoose_2.Types.ObjectId)
 ], Chat.prototype, "userIdFirst", void 0);
@@ -23,6 +27,18 @@ __decorate([
     (0, mongoose_1.Prop)({ type: mongoose_2.Types.ObjectId, ref: 'User', required: true }),
     __metadata("design:type", mongoose_2.Types.ObjectId)
 ], Chat.prototype, "userIdSecond", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({
+        type: [
+            {
+                userSend: { type: String, ref: 'User', required: true },
+                ConteudoMessage: { type: String, required: true },
+                Timespam: { type: Date, required: true },
+            },
+        ],
+    }),
+    __metadata("design:type", Array)
+], Chat.prototype, "messages", void 0);
 exports.Chat = Chat = __decorate([
     (0, mongoose_1.Schema)()
 ], Chat);

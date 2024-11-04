@@ -6,43 +6,43 @@ export type DonationDocument = HydratedDocument<Donation>;
 @Schema()
 export class Donation {
   @Prop({ type: Types.ObjectId, ref: 'User', required: true })
-  donor: Types.ObjectId; 
+  donor: Types.ObjectId;
 
   @Prop({ required: true })
-  productName: string;  
+  productName: string;
 
   @Prop({ required: true })
-  description: string;  
+  description: string;
 
   @Prop({ required: true })
-  category: string; 
+  category: string;
 
   @Prop({ enum: ['novo', 'usado', 'precisa de reparos'], required: true })
-  condition: 'novo' | 'usado' | 'precisa de reparos';  
+  condition: 'novo' | 'usado' | 'precisa de reparos';
 
   @Prop({ required: true })
-  quantity: number;  
+  quantity: number;
 
   @Prop({ required: true })
   numberShoes: number;
 
   @Prop({ enum: ['PP', 'P', 'M', 'G', 'GG', ''] })
-  tamanhos: 'PP'| 'P'| 'M'| 'G'| 'GG' | '';
+  tamanhos: 'PP' | 'P' | 'M' | 'G' | 'GG' | '';
 
   @Prop({ enum: ['available', 'reserved', 'received'], default: 'available' })
-  status: 'available' | 'reserved' | 'received';  
+  status: 'available' | 'reserved' | 'received';
 
   @Prop({ type: Types.ObjectId, ref: 'User', default: null })
-  receiver?: Types.ObjectId | null;  
+  receiver?: Types.ObjectId | null;
 
   @Prop()
-  image : string[];
+  image: string[];
 
   @Prop({ default: Date.now })
-  createdAt: Date;  
+  createdAt: Date;
 
   @Prop({ default: Date.now })
-  updatedAt: Date;  
+  updatedAt: Date;
 }
 
 export const DonationSchema = SchemaFactory.createForClass(Donation);

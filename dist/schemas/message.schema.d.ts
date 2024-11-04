@@ -1,7 +1,7 @@
 import { HydratedDocument, Types } from 'mongoose';
 export type MessageDocument = HydratedDocument<Message>;
 export declare class Message {
-    userSend: Types.ObjectId;
+    userSend: string;
     IdChat: Types.ObjectId;
     ConteudoMessage: string;
     Timespam: Date;

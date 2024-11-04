@@ -18,31 +18,43 @@ const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
 const chat_schema_1 = require("../../schemas/chat.schema");
 const message_schema_1 = require("../../schemas/message.schema");
+const user_schema_1 = require("../../schemas/user.schema");
 let ChatService = class ChatService {
-    constructor(chatModel, messageModel) {
+    constructor(chatModel, messageModel, userModel) {
         this.chatModel = chatModel;
         this.messageModel = messageModel;
+        this.userModel = userModel;
     }
     async sendMessage(user1, user2, message) {
         try {
-            let chatItem = await this.chatModel.findOne({
+            const chatItem = await this.chatModel.findOne({
                 $or: [
                     { userIdFirst: user1, userIdSecond: user2 },
-                    { userIdSecond: user1, userIdFirst: user2 }
-                ]
+                    { userIdSecond: user1, userIdFirst: user2 },
+                ],
             });
             if (!chatItem) {
                 const newChat = new this.chatModel({
                     userIdFirst: user1,
                     userIdSecond: user2,
+                    messages: [
+                        {
+                            userSend: user1,
+                            ConteudoMessage: message,
+                            Timespam: new Date(),
+                        },
+                    ],
                 });
-                chatItem = await newChat.save();
+                return await newChat.save();
             }
-            const newMessage = new this.messageModel();
-            newMessage.IdChat = chatItem.id;
-            newMessage.ConteudoMessage = message;
-            newMessage.userSend = user1;
-            return newMessage.save();
+            else {
+                chatItem.messages.push({
+                    userSend: user1,
+                    ConteudoMessage: message,
+                    Timespam: new Date(),
+                });
+                return await chatItem.save();
+            }
         }
         catch (error) {
             throw new common_1.InternalServerErrorException('Erro ao criar da mensagem: ' + error.message);
@@ -50,21 +62,78 @@ let ChatService = class ChatService {
     }
     async GetMessage(user1, user2) {
         try {
-            let chatItem = await this.chatModel.findOne({
+            const chatItem = await this.chatModel.findOne({
                 $or: [
                     { userIdFirst: user1, userIdSecond: user2 },
-                    { userIdSecond: user1, userIdFirst: user2 }
-                ]
+                    { userIdSecond: user1, userIdFirst: user2 },
+                ],
             });
             console.log(chatItem);
             if (!chatItem) {
                 throw new common_1.NotFoundException(`Não existe mensagens trocadas entre esses usuários`);
             }
-            const listaMensagens = await this.messageModel.find({ IdChat: chatItem.id });
+            const listaMensagens = await this.messageModel.find({
+                IdChat: chatItem.id,
+            });
             return listaMensagens;
         }
         catch (error) {
             throw new common_1.InternalServerErrorException('Erro ao buscar da mensagem: ' + error.message);
+        }
+    }
+    async getLastMessages(userId) {
+        try {
+            const chatItens = await this.chatModel.aggregate([
+                {
+                    $match: {
+                        $or: [{ userIdFirst: userId }, { userIdSecond: userId }],
+                    },
+                },
+                {
+                    $lookup: {
+                        from: 'users',
+                        localField: 'userIdFirst',
+                        foreignField: 'ID',
+                        as: 'userFirstDetails',
+                    },
+                },
+                {
+                    $lookup: {
+                        from: 'users',
+                        localField: 'userIdSecond',
+                        foreignField: 'ID',
+                        as: 'userSecondDetails',
+                    },
+                },
+                {
+                    $unwind: '$userFirstDetails',
+                },
+                {
+                    $unwind: '$userSecondDetails',
+                },
+                {
+                    $project: {
+                        _id: 1,
+                        userIdFirst: 1,
+                        userIdSecond: 1,
+                        messages: 1,
+                        'userFirstDetails.nomeCompleto': 1,
+                        'userFirstDetails.email': 1,
+                        'userSecondDetails.nomeCompleto': 1,
+                        'userSecondDetails.email': 1,
+                    },
+                },
+            ]);
+            if (!chatItens || chatItens.length === 0) {
+                throw new common_1.NotFoundException(`Não existe mensagens trocadas entre esses usuários`);
+            }
+            if (!chatItens || chatItens.length === 0) {
+                throw new common_1.NotFoundException(`Não existe mensagens trocadas entre esses usuários`);
+            }
+            return chatItens;
+        }
+        catch (error) {
+            throw new common_1.InternalServerErrorException('Chat error: ' + error.message);
         }
     }
 };
@@ -73,7 +142,9 @@ exports.ChatService = ChatService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, mongoose_1.InjectModel)(chat_schema_1.Chat.name, 'main')),
     __param(1, (0, mongoose_1.InjectModel)(message_schema_1.Message.name, 'main')),
+    __param(2, (0, mongoose_1.InjectModel)(user_schema_1.User.name, 'main')),
     __metadata("design:paramtypes", [mongoose_2.Model,
+        mongoose_2.Model,
         mongoose_2.Model])
 ], ChatService);
 //# sourceMappingURL=chat.service.js.map

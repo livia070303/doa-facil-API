@@ -17,10 +17,10 @@ let Message = class Message {
 exports.Message = Message;
 __decorate([
     (0, mongoose_1.Prop)({ type: mongoose_2.Types.ObjectId, ref: 'User', required: true }),
-    __metadata("design:type", mongoose_2.Types.ObjectId)
+    __metadata("design:type", String)
 ], Message.prototype, "userSend", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ type: mongoose_2.Types.ObjectId, ref: 'Chat', required: true }),
+    (0, mongoose_1.Prop)({ type: mongoose_2.Types.ObjectId, refPath: 'Chat.ID', required: true }),
     __metadata("design:type", mongoose_2.Types.ObjectId)
 ], Message.prototype, "IdChat", void 0);
 __decorate([

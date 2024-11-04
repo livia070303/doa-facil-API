@@ -4,18 +4,20 @@ import { ChatService } from './chat.service';
 import { ChatController } from '../chat.controller';
 import { Chat, ChatSchema } from '../../schemas/chat.schema';
 import { Message, MessageSchema } from '../../schemas/message.schema';
+import { User, UserSchema } from 'src/schemas/user.schema';
 
 @Module({
   imports: [
     MongooseModule.forFeature(
       [
-        { name: Chat.name, schema: ChatSchema },  
+        { name: Chat.name, schema: ChatSchema },
         { name: Message.name, schema: MessageSchema },
+        { name: User.name, schema: UserSchema },
       ],
-      'main'  
+      'main',
     ),
   ],
-  providers: [ChatService], 
+  providers: [ChatService],
   controllers: [ChatController],
 })
 export class ChatModule {}

@@ -21,12 +21,14 @@ let ChatController = class ChatController {
         this.chatService = chatService;
     }
     async sendMessage(user1, user2, message) {
-        if (!mongoose_1.Types.ObjectId.isValid(user1) || !mongoose_1.Types.ObjectId.isValid(user2)) {
-            throw new common_1.BadRequestException('IDs de usuário inválidos');
+        return this.chatService.sendMessage(user1, user2, message);
+    }
+    async getLastMessages(userIdObj) {
+        const messages = this.chatService.getLastMessages(userIdObj);
+        if (!messages) {
+            throw new common_1.BadRequestException('Nenhuma mensagem encontrada');
         }
-        const userIdFirst = new mongoose_1.Types.ObjectId(user1);
-        const userIdSecond = new mongoose_1.Types.ObjectId(user2);
-        return this.chatService.sendMessage(userIdFirst, userIdSecond, message);
+        return messages;
     }
     async getMessages(user1, user2) {
         if (!mongoose_1.Types.ObjectId.isValid(user1) || !mongoose_1.Types.ObjectId.isValid(user2)) {
@@ -47,6 +49,13 @@ __decorate([
     __metadata("design:paramtypes", [String, String, String]),
     __metadata("design:returntype", Promise)
 ], ChatController.prototype, "sendMessage", null);
+__decorate([
+    (0, common_1.Get)('getLastMessages/:userIdObj'),
+    __param(0, (0, common_1.Param)('userIdObj')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], ChatController.prototype, "getLastMessages", null);
 __decorate([
     (0, common_1.Get)('get-messages'),
     __param(0, (0, common_1.Param)('user1')),
