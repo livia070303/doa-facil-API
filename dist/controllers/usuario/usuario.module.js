@@ -14,17 +14,20 @@ const usuario_controller_1 = require("../usuario.controller");
 const autenticacao_controller_1 = require("../autenticacao.controller");
 const user_schema_1 = require("../../schemas/user.schema");
 const autorizacao_controller_1 = require("../autorizacao.controller");
+const favorite_service_1 = require("./favorite.service");
+const favorite_schema_1 = require("../../schemas/favorite.schema");
+const donation_schema_1 = require("../../schemas/donation.schema");
 let UsuarioModule = class UsuarioModule {
 };
 exports.UsuarioModule = UsuarioModule;
 exports.UsuarioModule = UsuarioModule = __decorate([
     (0, common_1.Module)({
         imports: [
-            mongoose_1.MongooseModule.forFeature([{ name: user_schema_1.User.name, schema: user_schema_1.UserSchema }], 'main'),
+            mongoose_1.MongooseModule.forFeature([{ name: user_schema_1.User.name, schema: user_schema_1.UserSchema }, { name: favorite_schema_1.Favorite.name, schema: favorite_schema_1.FavoriteSchema }, { name: donation_schema_1.Donation.name, schema: donation_schema_1.DonationSchema }], 'main'),
         ],
         controllers: [usuario_controller_1.UsuarioController, autenticacao_controller_1.AutenticacaoController, autorizacao_controller_1.AuthorizerController],
-        providers: [usuario_service_1.UsuarioService],
-        exports: [usuario_service_1.UsuarioService],
+        providers: [usuario_service_1.UsuarioService, favorite_service_1.FavoriteService],
+        exports: [usuario_service_1.UsuarioService, favorite_service_1.FavoriteService],
     })
 ], UsuarioModule);
 //# sourceMappingURL=usuario.module.js.map

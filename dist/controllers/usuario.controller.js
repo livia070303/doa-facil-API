@@ -17,9 +17,32 @@ const common_1 = require("@nestjs/common");
 const usuario_service_1 = require("./usuario/usuario.service");
 const cadastro_usuario_dto_1 = require("./usuario/dto/cadastro_usuario_dto");
 const bcryptjs_1 = require("bcryptjs");
+const favorite_service_1 = require("./usuario/favorite.service");
 let UsuarioController = class UsuarioController {
-    constructor(usuariosService) {
+    constructor(usuariosService, favoriteService) {
         this.usuariosService = usuariosService;
+        this.favoriteService = favoriteService;
+    }
+    async getFavorites(userId) {
+        const resposta = await this.favoriteService.getAllFavorites(userId);
+        return {
+            favorite: resposta,
+            message: 'ok',
+        };
+    }
+    async createFavorite(body) {
+        const { userId, donationId } = body;
+        await this.favoriteService.create(userId, donationId);
+        return {
+            message: 'Favorito criado com sucesso',
+        };
+    }
+    async deleteFavorite(query) {
+        const { userId, donationId } = query;
+        await this.favoriteService.delete(userId, donationId);
+        return {
+            message: 'Favorito excluído com sucesso',
+        };
     }
     async createCadastroUsuario(createCadastroUsuarioDto) {
         createCadastroUsuarioDto.senha = await (0, bcryptjs_1.hash)(createCadastroUsuarioDto.senha, 8);
@@ -58,6 +81,27 @@ let UsuarioController = class UsuarioController {
 };
 exports.UsuarioController = UsuarioController;
 __decorate([
+    (0, common_1.Get)('/favorite/:id'),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], UsuarioController.prototype, "getFavorites", null);
+__decorate([
+    (0, common_1.Post)('favorite'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], UsuarioController.prototype, "createFavorite", null);
+__decorate([
+    (0, common_1.Delete)('favorite'),
+    __param(0, (0, common_1.Query)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], UsuarioController.prototype, "deleteFavorite", null);
+__decorate([
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -94,6 +138,6 @@ __decorate([
 ], UsuarioController.prototype, "atualizarCadastroUsuario", null);
 exports.UsuarioController = UsuarioController = __decorate([
     (0, common_1.Controller)('user'),
-    __metadata("design:paramtypes", [usuario_service_1.UsuarioService])
+    __metadata("design:paramtypes", [usuario_service_1.UsuarioService, favorite_service_1.FavoriteService])
 ], UsuarioController);
 //# sourceMappingURL=usuario.controller.js.map

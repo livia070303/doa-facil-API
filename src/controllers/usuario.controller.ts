@@ -6,6 +6,7 @@ import {
   Put,
   Delete,
   Param,
+  Query,
 } from '@nestjs/common';
 import { UsuarioService } from './usuario/usuario.service';
 import {
@@ -17,10 +18,41 @@ import {
   ReturnListCadastroUsuarioDto,
 } from './usuario/dto/return-cadastro_usuario.dto';
 import { hash } from 'bcryptjs';
+import { FavoriteService } from './usuario/favorite.service';
 
 @Controller('user')
 export class UsuarioController {
-  constructor(private usuariosService: UsuarioService) {}
+  constructor(private usuariosService: UsuarioService, private favoriteService: FavoriteService) {}
+
+  @Get('/favorite/:id')
+  async getFavorites( @Param('id') userId: string,): Promise<any> {
+    const resposta = await this.favoriteService.getAllFavorites(userId);
+    return {
+      favorite: resposta,
+      message: 'ok',
+    };
+  }
+
+  @Post('favorite')
+  async createFavorite(@Body() body: { userId: string; donationId: string }): Promise<any> {
+      const { userId, donationId } = body;
+      await this.favoriteService.create(userId, donationId);
+  
+      return {
+          message: 'Favorito criado com sucesso',
+      };
+  }
+
+  @Delete('favorite')
+  async deleteFavorite(@Query() query: { userId: string; donationId: string }): Promise<any> {
+    const { userId, donationId } = query;
+
+      await this.favoriteService.delete(userId, donationId);
+  
+      return {
+          message: 'Favorito excluído com sucesso',
+      };
+  }
 
   @Post()
   async createCadastroUsuario(
@@ -81,5 +113,6 @@ export class UsuarioController {
       user: cadastroUsuario,
       message: 'Cadastro do usuário atualizado com sucesso',
     };
-  }
+  }  
+
 }
