@@ -89,6 +89,11 @@ let ChatService = class ChatService {
                     $unwind: '$userSecondDetails',
                 },
                 {
+                    $sort: {
+                        'messages.Timespam': -1,
+                    },
+                },
+                {
                     $project: {
                         _id: 1,
                         userIdFirst: 1,
