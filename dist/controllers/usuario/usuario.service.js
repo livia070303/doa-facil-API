@@ -49,9 +49,11 @@ let UsuarioService = class UsuarioService {
         return user;
     }
     async getCadastroUsuarioByEmail(email) {
-        const user = await this.userModel.findOne({
+        const user = await this.userModel
+            .findOne({
             email: email,
-        }).exec();
+        })
+            .exec();
         return user;
     }
     async deleteCadastroUsuarioById(id) {
@@ -59,17 +61,17 @@ let UsuarioService = class UsuarioService {
     }
     async updateCadastroUsuarioById(id, updateCadastroUsuarioDto) {
         try {
-            const prof = await this.userModel.findById(id);
+            const prof = await this.userModel.findOne({
+                ID: id,
+            });
             if (prof) {
                 prof.nomeCompleto = updateCadastroUsuarioDto.nomeCompleto;
-                prof.CPF = updateCadastroUsuarioDto.CPF;
                 prof.telefone = updateCadastroUsuarioDto.telefone;
                 prof.email = updateCadastroUsuarioDto.email;
                 prof.CEP = updateCadastroUsuarioDto.CEP;
                 prof.estado = updateCadastroUsuarioDto.estado;
                 prof.rua = updateCadastroUsuarioDto.rua;
                 prof.cidade = updateCadastroUsuarioDto.cidade;
-                prof.senha = updateCadastroUsuarioDto.senha;
                 await prof.save();
                 return prof;
             }

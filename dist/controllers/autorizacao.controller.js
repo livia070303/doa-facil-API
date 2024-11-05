@@ -12,7 +12,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.LogoutController = exports.AuthorizerController = void 0;
+exports.AuthorizerController = void 0;
 const common_1 = require("@nestjs/common");
 const jwt_1 = require("@nestjs/jwt");
 const zod_1 = require("zod");
@@ -55,24 +55,4 @@ exports.AuthorizerController = AuthorizerController = __decorate([
     (0, common_1.Controller)('authorization'),
     __metadata("design:paramtypes", [jwt_1.JwtService])
 ], AuthorizerController);
-let LogoutController = class LogoutController {
-    constructor() { }
-    async handler(res) {
-        res.clearCookie('dfaccTok');
-        return res.status(200).json({ message: 'Logout efetuado com sucesso' });
-    }
-};
-exports.LogoutController = LogoutController;
-__decorate([
-    (0, common_1.Get)(),
-    (0, common_1.HttpCode)(200),
-    __param(0, (0, common_1.Res)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", Promise)
-], LogoutController.prototype, "handler", null);
-exports.LogoutController = LogoutController = __decorate([
-    (0, common_1.Controller)('logout'),
-    __metadata("design:paramtypes", [])
-], LogoutController);
 //# sourceMappingURL=autorizacao.controller.js.map

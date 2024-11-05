@@ -5,7 +5,3 @@ export declare class AuthorizerController {
     constructor(jwt: JwtService);
     handler(req: Request, res: Response): Promise<Response<any, Record<string, any>>>;
 }
-export declare class LogoutController {
-    constructor();
-    handler(res: Response): Promise<Response<any, Record<string, any>>>;
-}

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import {
   Controller,
   Post,
@@ -22,10 +23,13 @@ import { FavoriteService } from './usuario/favorite.service';
 
 @Controller('user')
 export class UsuarioController {
-  constructor(private usuariosService: UsuarioService, private favoriteService: FavoriteService) {}
+  constructor(
+    private usuariosService: UsuarioService,
+    private favoriteService: FavoriteService,
+  ) {}
 
   @Get('/favorite/:id')
-  async getFavorites( @Param('id') userId: string,): Promise<any> {
+  async getFavorites(@Param('id') userId: string): Promise<any> {
     const resposta = await this.favoriteService.getAllFavorites(userId);
     return {
       favorite: resposta,
@@ -34,24 +38,28 @@ export class UsuarioController {
   }
 
   @Post('favorite')
-  async createFavorite(@Body() body: { userId: string; donationId: string }): Promise<any> {
-      const { userId, donationId } = body;
-      await this.favoriteService.create(userId, donationId);
-  
-      return {
-          message: 'Favorito criado com sucesso',
-      };
+  async createFavorite(
+    @Body() body: { userId: string; donationId: string },
+  ): Promise<any> {
+    const { userId, donationId } = body;
+    await this.favoriteService.create(userId, donationId);
+
+    return {
+      message: 'Favorito criado com sucesso',
+    };
   }
 
   @Delete('favorite')
-  async deleteFavorite(@Query() query: { userId: string; donationId: string }): Promise<any> {
+  async deleteFavorite(
+    @Query() query: { userId: string; donationId: string },
+  ): Promise<any> {
     const { userId, donationId } = query;
 
-      await this.favoriteService.delete(userId, donationId);
-  
-      return {
-          message: 'Favorito excluído com sucesso',
-      };
+    await this.favoriteService.delete(userId, donationId);
+
+    return {
+      message: 'Favorito excluído com sucesso',
+    };
   }
 
   @Post()
@@ -113,6 +121,5 @@ export class UsuarioController {
       user: cadastroUsuario,
       message: 'Cadastro do usuário atualizado com sucesso',
     };
-  }  
-
+  }
 }

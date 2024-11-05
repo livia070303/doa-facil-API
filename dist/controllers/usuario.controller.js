@@ -138,6 +138,7 @@ __decorate([
 ], UsuarioController.prototype, "atualizarCadastroUsuario", null);
 exports.UsuarioController = UsuarioController = __decorate([
     (0, common_1.Controller)('user'),
-    __metadata("design:paramtypes", [usuario_service_1.UsuarioService, favorite_service_1.FavoriteService])
+    __metadata("design:paramtypes", [usuario_service_1.UsuarioService,
+        favorite_service_1.FavoriteService])
 ], UsuarioController);
 //# sourceMappingURL=usuario.controller.js.map

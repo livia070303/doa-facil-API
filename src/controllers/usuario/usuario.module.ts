@@ -8,15 +8,25 @@ import { AuthorizerController } from '../autorizacao.controller';
 import { FavoriteService } from './favorite.service';
 import { Favorite, FavoriteSchema } from 'src/schemas/favorite.schema';
 import { Donation, DonationSchema } from 'src/schemas/donation.schema';
+import { LogoutController } from '../logout.controller';
 
 @Module({
   imports: [
     MongooseModule.forFeature(
-      [{ name: User.name, schema: UserSchema },  { name: Favorite.name, schema: FavoriteSchema }, { name: Donation.name, schema: DonationSchema }],
+      [
+        { name: User.name, schema: UserSchema },
+        { name: Favorite.name, schema: FavoriteSchema },
+        { name: Donation.name, schema: DonationSchema },
+      ],
       'main',
     ),
   ],
-  controllers: [UsuarioController, AutenticacaoController, AuthorizerController],
+  controllers: [
+    UsuarioController,
+    AutenticacaoController,
+    AuthorizerController,
+    LogoutController,
+  ],
   providers: [UsuarioService, FavoriteService],
   exports: [UsuarioService, FavoriteService],
 })
