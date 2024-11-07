@@ -17,7 +17,7 @@ const common_1 = require("@nestjs/common");
 let LogoutController = class LogoutController {
     constructor() { }
     async handler(res) {
-        res.clearCookie('dfaccTok');
+        res.clearCookie('dfaccTok', { path: '/', sameSite: 'none', secure: true });
         return res.status(200).json({ message: 'Logout efetuado com sucesso' });
     }
 };

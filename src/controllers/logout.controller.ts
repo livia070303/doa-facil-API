@@ -8,7 +8,7 @@ export class LogoutController {
   @Get()
   @HttpCode(200)
   async handler(@Res() res: Response) {
-    res.clearCookie('dfaccTok');
+    res.clearCookie('dfaccTok', { path: '/', sameSite: 'none', secure: true });
 
     return res.status(200).json({ message: 'Logout efetuado com sucesso' });
   }
