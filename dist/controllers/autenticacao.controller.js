@@ -42,8 +42,8 @@ let AutenticacaoController = class AutenticacaoController {
         res.cookie('dfaccTok', accessToken, {
             expires: new Date(Date.now() + 1000 * 60 * 60 * 24),
             httpOnly: true,
-            secure: true,
-            sameSite: 'none',
+            secure: false,
+            sameSite: 'lax',
         });
         const payload = {
             accessToken_token: accessToken,
