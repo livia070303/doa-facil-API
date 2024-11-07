@@ -20,7 +20,9 @@ import { ChatModule } from './controllers/chat/chat.module';
       validate: (env) => envSchema.parse(env),
       isGlobal: true,
     }),
-    UsuarioModule, DonationModule, ChatModule
+    UsuarioModule,
+    DonationModule,
+    ChatModule,
   ],
   controllers: [],
   providers: [],

@@ -29,7 +29,9 @@ exports.AppModule = AppModule = __decorate([
                 validate: (env) => env_1.envSchema.parse(env),
                 isGlobal: true,
             }),
-            usuario_module_1.UsuarioModule, donation_module_1.DonationModule, chat_module_1.ChatModule
+            usuario_module_1.UsuarioModule,
+            donation_module_1.DonationModule,
+            chat_module_1.ChatModule,
         ],
         controllers: [],
         providers: [],

@@ -51,8 +51,8 @@ export class AutenticacaoController {
     res.cookie('dfaccTok', accessToken, {
       expires: new Date(Date.now() + 1000 * 60 * 60 * 24), // 24 hour
       httpOnly: true,
-      secure: true,
-      sameSite: 'none',
+      secure: false,
+      sameSite: 'lax',
     });
 
     const payload = {
