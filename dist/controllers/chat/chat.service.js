@@ -25,16 +25,20 @@ let ChatService = class ChatService {
     }
     async sendMessage(user1, user2, message) {
         try {
-            const chatItem = await this.chatModel.findOne({
+            if (user1 === user2) {
+                throw new Error('User cannot send a message to themselves.');
+            }
+            const [firstUser, secondUser] = user1 < user2 ? [user1, user2] : [user2, user1];
+            let chatItem = await this.chatModel.findOne({
                 $or: [
-                    { userIdFirst: user1, userIdSecond: user2 },
-                    { userIdSecond: user1, userIdFirst: user2 },
+                    { userIdFirst: firstUser, userIdSecond: secondUser },
+                    { userIdFirst: secondUser, userIdSecond: firstUser },
                 ],
             });
             if (!chatItem) {
-                const newChat = new this.chatModel({
-                    userIdFirst: user1,
-                    userIdSecond: user2,
+                chatItem = new this.chatModel({
+                    userIdFirst: firstUser,
+                    userIdSecond: secondUser,
                     messages: [
                         {
                             userSend: user1,
@@ -43,9 +47,15 @@ let ChatService = class ChatService {
                         },
                     ],
                 });
-                return await newChat.save();
+                return await chatItem.save();
             }
             else {
+                const lastMessage = chatItem.messages[chatItem.messages.length - 1];
+                if (lastMessage &&
+                    lastMessage.userSend === user1 &&
+                    lastMessage.ConteudoMessage === message) {
+                    throw new Error('Duplicate message detected.');
+                }
                 chatItem.messages.push({
                     userSend: user1,
                     ConteudoMessage: message,
@@ -55,7 +65,7 @@ let ChatService = class ChatService {
             }
         }
         catch (error) {
-            throw new common_1.InternalServerErrorException('Erro ao criar da mensagem: ' + error.message);
+            throw new common_1.InternalServerErrorException('Erro ao criar/enviar a mensagem: ' + error.message);
         }
     }
     async getLastMessages(userId) {

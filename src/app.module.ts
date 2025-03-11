@@ -6,6 +6,10 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { UsuarioModule } from './controllers/usuario/usuario.module';
 import { DonationModule } from './controllers/donation/donation.module';
 import { ChatModule } from './controllers/chat/chat.module';
+import { ChatGateway } from './chat/chat.gateway';
+import { ChatService } from './controllers/chat/chat.service';
+import { Chat, ChatSchema } from './schemas/chat.schema';
+import { User, UserSchema } from './schemas/user.schema';
 
 @Module({
   imports: [
@@ -14,6 +18,14 @@ import { ChatModule } from './controllers/chat/chat.module';
       {
         connectionName: 'main',
       },
+    ),
+    MongooseModule.forFeature(
+      [{ name: Chat.name, schema: ChatSchema }],
+      'main',
+    ),
+    MongooseModule.forFeature(
+      [{ name: User.name, schema: UserSchema }],
+      'main',
     ),
     AuthModule,
     ConfigModule.forRoot({
@@ -25,6 +37,6 @@ import { ChatModule } from './controllers/chat/chat.module';
     ChatModule,
   ],
   controllers: [],
-  providers: [],
+  providers: [ChatGateway, ChatService],
 })
 export class AppModule {}

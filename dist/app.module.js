@@ -15,6 +15,10 @@ const mongoose_1 = require("@nestjs/mongoose");
 const usuario_module_1 = require("./controllers/usuario/usuario.module");
 const donation_module_1 = require("./controllers/donation/donation.module");
 const chat_module_1 = require("./controllers/chat/chat.module");
+const chat_gateway_1 = require("./chat/chat.gateway");
+const chat_service_1 = require("./controllers/chat/chat.service");
+const chat_schema_1 = require("./schemas/chat.schema");
+const user_schema_1 = require("./schemas/user.schema");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -24,6 +28,8 @@ exports.AppModule = AppModule = __decorate([
             mongoose_1.MongooseModule.forRoot('mongodb+srv://admin:123doafacil@cluster0.3mj5p.mongodb.net', {
                 connectionName: 'main',
             }),
+            mongoose_1.MongooseModule.forFeature([{ name: chat_schema_1.Chat.name, schema: chat_schema_1.ChatSchema }], 'main'),
+            mongoose_1.MongooseModule.forFeature([{ name: user_schema_1.User.name, schema: user_schema_1.UserSchema }], 'main'),
             auth_module_1.AuthModule,
             config_1.ConfigModule.forRoot({
                 validate: (env) => env_1.envSchema.parse(env),
@@ -34,7 +40,7 @@ exports.AppModule = AppModule = __decorate([
             chat_module_1.ChatModule,
         ],
         controllers: [],
-        providers: [],
+        providers: [chat_gateway_1.ChatGateway, chat_service_1.ChatService],
     })
 ], AppModule);
 //# sourceMappingURL=app.module.js.map
