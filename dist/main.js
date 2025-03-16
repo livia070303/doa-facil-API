@@ -28,7 +28,7 @@ async function bootstrap() {
             }
         },
         methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-        credentials: true,
+        allowedHeaders: 'Content-Type, Authorization',
     });
     app.useGlobalPipes(new common_1.ValidationPipe());
     console.log('PORT:', port);
