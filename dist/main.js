@@ -16,7 +16,7 @@ async function bootstrap() {
     dotenv.config();
     app.use(cookieParser());
     app.enableCors({
-        origin: ['https://doa-facil.vercel.app', 'http://localhost:5173'],
+        origin: ['https://doa-facil.vercel.app'],
         methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
         allowedHeaders: ['Content-Type', 'Authorization'],
         credentials: true,
