@@ -20,17 +20,16 @@ async function bootstrap() {
   app.enableCors({
     origin: (origin, callback) => {
       const allowedOrigins = [
-        // 'http://localhost:5173',
-        // 'https://doa-facil.vercel.app',
-        '*',
+        'https://doa-facil.vercel.app',
+        'http://localhost:5173',
       ];
-      if (allowedOrigins.includes(origin) || !origin) {
+
+      if (!origin || allowedOrigins.includes(origin)) {
         callback(null, true);
       } else {
-        callback(new Error('Not allowed'));
+        callback(new Error('Not allowed by CORS'));
       }
     },
-    // origin: 'http://localhost:5173',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
   });

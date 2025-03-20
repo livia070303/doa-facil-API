@@ -8,7 +8,12 @@ import {
 import { Server, Socket } from 'socket.io';
 import { ChatService } from 'src/controllers/chat/chat.service';
 
-@WebSocketGateway({ cors: { origin: '*' } })
+@WebSocketGateway({
+  cors: {
+    origin: ['https://doa-facil.vercel.app', 'http://localhost:5173'],
+    credentials: true,
+  },
+})
 export class ChatGateway {
   @WebSocketServer()
   server: Server;
