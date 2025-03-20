@@ -12,6 +12,19 @@
       "dest": "dist/main.js",
       "methods": ["GET", "POST", "PUT", "PATCH", "DELETE", "HEAD", "OPTIONS"]
       
+    },
+    {
+      "headers": [
+        {
+          "source": "/(.*)",
+          "headers": [
+            { "key": "Access-Control-Allow-Origin", "value": "https://doa-facil.vercel.app" },
+            { "key": "Access-Control-Allow-Methods", "value": "GET, POST, OPTIONS, PUT, PATCH, DELETE" },
+            { "key": "Access-Control-Allow-Headers", "value": "Content-Type, Authorization" },
+            { "key": "Access-Control-Allow-Credentials", "value": "true" }
+          ]
+        }
+      ]
     }
   ]
 }
