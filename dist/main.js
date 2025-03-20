@@ -17,8 +17,7 @@ async function bootstrap() {
     app.enableCors({
         origin: (origin, callback) => {
             const allowedOrigins = [
-                'http://localhost:5173',
-                'https://doa-facil.vercel.app',
+                '*',
             ];
             if (allowedOrigins.includes(origin) || !origin) {
                 callback(null, true);
