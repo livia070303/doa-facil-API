@@ -15,10 +15,36 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ChatGateway = void 0;
 const websockets_1 = require("@nestjs/websockets");
 const socket_io_1 = require("socket.io");
+const cookie = require("cookie");
 const chat_service_1 = require("../controllers/chat/chat.service");
+const jwt_1 = require("@nestjs/jwt");
 let ChatGateway = class ChatGateway {
-    constructor(chatService) {
+    constructor(chatService, jwtService) {
         this.chatService = chatService;
+        this.jwtService = jwtService;
+    }
+    async handleConnection(client) {
+        try {
+            const cookies = cookie.parse(client.handshake.headers.cookie || '');
+            const token = cookies.dfaccTok;
+            if (!token) {
+                console.log('Missing token');
+                client.disconnect();
+                return;
+            }
+            const payload = this.jwtService.verify(token);
+            console.log('Authenticated user:', payload);
+            if (payload && payload.sub) {
+                await client.join(payload.sub);
+            }
+            else {
+                throw new Error('Invalid token payload');
+            }
+        }
+        catch (error) {
+            console.error('WebSocket authentication failed:', error.message);
+            client.disconnect();
+        }
     }
     handleJoinRoom(userId, client) {
         client.join(userId);
@@ -55,10 +81,9 @@ exports.ChatGateway = ChatGateway = __decorate([
     (0, websockets_1.WebSocketGateway)({
         cors: {
             origin: ['https://doa-facil.vercel.app', 'http://localhost:5173'],
-            methods: ['GET', 'POST'],
-            credentials: true,
         },
     }),
-    __metadata("design:paramtypes", [chat_service_1.ChatService])
+    __metadata("design:paramtypes", [chat_service_1.ChatService,
+        jwt_1.JwtService])
 ], ChatGateway);
 //# sourceMappingURL=chat.gateway.js.map

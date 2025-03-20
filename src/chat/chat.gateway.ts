@@ -4,22 +4,51 @@ import {
   SubscribeMessage,
   MessageBody,
   ConnectedSocket,
+  OnGatewayConnection,
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
+import * as cookie from 'cookie';
 import { ChatService } from 'src/controllers/chat/chat.service';
+import { JwtService } from '@nestjs/jwt';
 
 @WebSocketGateway({
   cors: {
     origin: ['https://doa-facil.vercel.app', 'http://localhost:5173'],
-    methods: ['GET', 'POST'],
-    credentials: true,
   },
 })
-export class ChatGateway {
+export class ChatGateway implements OnGatewayConnection {
   @WebSocketServer()
   server: Server;
 
-  constructor(private readonly chatService: ChatService) {}
+  constructor(
+    private readonly chatService: ChatService,
+    private readonly jwtService: JwtService,
+  ) {}
+
+  async handleConnection(client: Socket) {
+    try {
+      const cookies = cookie.parse(client.handshake.headers.cookie || '');
+      const token = cookies.dfaccTok;
+
+      if (!token) {
+        console.log('Missing token');
+        client.disconnect();
+        return;
+      }
+
+      const payload = this.jwtService.verify(token);
+      console.log('Authenticated user:', payload);
+
+      if (payload && payload.sub) {
+        await client.join(payload.sub);
+      } else {
+        throw new Error('Invalid token payload');
+      }
+    } catch (error) {
+      console.error('WebSocket authentication failed:', error.message);
+      client.disconnect();
+    }
+  }
 
   @SubscribeMessage('joinRoom')
   @SubscribeMessage('joinRoom')
