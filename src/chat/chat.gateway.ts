@@ -11,6 +11,7 @@ import { ChatService } from 'src/controllers/chat/chat.service';
 @WebSocketGateway({
   cors: {
     origin: ['https://doa-facil.vercel.app', 'http://localhost:5173'],
+    methods: ['GET', 'POST'],
     credentials: true,
   },
 })
