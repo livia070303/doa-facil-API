@@ -14,6 +14,7 @@ import { JwtService } from '@nestjs/jwt';
 @WebSocketGateway({
   cors: {
     origin: ['https://doa-facil.vercel.app', 'http://localhost:5173'],
+    credentials: true,
   },
 })
 export class ChatGateway implements OnGatewayConnection {

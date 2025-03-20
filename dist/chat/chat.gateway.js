@@ -81,6 +81,7 @@ exports.ChatGateway = ChatGateway = __decorate([
     (0, websockets_1.WebSocketGateway)({
         cors: {
             origin: ['https://doa-facil.vercel.app', 'http://localhost:5173'],
+            credentials: true,
         },
     }),
     __metadata("design:paramtypes", [chat_service_1.ChatService,
